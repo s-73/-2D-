@@ -1,0 +1,377 @@
+%\documentclass[a4paper]{jarticle} 
+\documentclass[dvipdfmx,a4paper]{jsarticle}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\topmargin = 0mm
+\oddsidemargin = 5mm
+\textwidth = 152mm
+\textheight = 240mm
+
+
+% サブセクションを 問1,問2 にする設定
+\renewcommand{\thesection}{[\arabic{section}]}
+
+% サブサブセクションを (1),(2)にする設定
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+% (i),(ii)なら \arabic を \roman に変える。    (a),(b)なら \alph
+
+\renewcommand{\thesubsubsection}{(\roman{subsubsection})}
+
+% 大問2の3番目の計算式のラベルを (2.3) にする設定
+% 計算式の参照には \eqref{eq:hoge} を使う
+\makeatletter
+  \renewcommand{\theequation}{\arabic{subsection}.\arabic{equation}}
+  \@addtoreset{equation}{subsection}
+\makeatother
+
+% --------------------------------------------------------------------
+\begin{document}
+
+% タイトル
+\begin{center}
+\textbf{\huge{数学２D演習　第5回}}
+\end{center}
+
+%名前
+\begin{flushright}
+工学部電気電子工学科3年　03200489　末吉七海\\
+\end{flushright}
+
+% --------------------------------------------------------------------
+% 問1
+\section{復習}
+
+%(1)
+\subsection{$\log{i}$}
+nを整数として、
+\begin{align*}
+\log{i} &= \log{\Bigl(\exp{\bigl(i(\frac{\pi}{2} + 2n\pi )\bigr)}\Bigr)}\\
+&= i(\frac{\pi}{2} + 2n\pi) \quad (n \in \mathbb{Z})
+\end{align*}
+\\
+%(2)
+\subsection{$\mbox{\large$i^\frac{1}{2}$}$}
+nを整数として、
+\begin{align*}
+i^\frac{1}{2} &= \Bigl(\exp{\bigl(i(\frac{\pi}{2} + 2n\pi )\bigr)}\Bigr)^{\frac{1}{2}}\\
+&= \exp{\bigl(\frac{1}{2}i(\frac{\pi}{2} + 2n\pi )\bigr)}\\
+&= \exp{\bigl(i(\frac{\pi}{4} + n\pi )\bigr)}\\
+&= (-1)^{n-1}\frac{1 + i}{\sqrt{2}} \quad (n \in \mathbb{Z})
+\end{align*}
+\\
+%(3)
+\subsection{$\mbox{\large$i^i$}$}
+nを整数として、
+\begin{align*}
+i^i &= \Bigl(\exp{\bigl(i(\frac{\pi}{2} + 2n\pi )\bigr)}\Bigr)^i\\
+&= \exp{\bigl(-(\frac{\pi}{2} + 2n\pi )\bigr)} \quad (n \in \mathbb{Z})
+\end{align*}
+\\
+%(4)
+\subsection{$\sin{(i)}$}
+\begin{align*}
+\sin{(i)} &= \frac{1}{2i}\bigl(e^{ii} - e^{-ii}\bigr)\\
+&= \frac{1}{2i}\bigl(e^{-1} - e^{1}\bigr)\\
+&= \frac{i}{2}\bigl(e - \frac{1}{e}\bigr)
+\end{align*}
+\\
+%(5)
+\subsection{$\log{(1 + i\sqrt{3})}$}
+nを整数として、
+\begin{align*}
+\log{(1 + i\sqrt{3})} &= \log{\Bigl(2\exp{\bigl(i(\frac{\pi}{3} + 2n\pi )\bigr)}\Bigr)}\\
+&= \log{2} + i(\frac{\pi}{3} + 2n\pi) \quad (n \in \mathbb{Z})
+\end{align*}
+\\
+%(6)
+\subsection{$\mbox{\Large$\frac{2+i}{3-2i}$}$}
+\begin{align*}
+\frac{2+i}{3-2i} &= \frac{(2+i)(3+2i)}{(3-2i)(3+2i)}\\
+&= \frac{4 + 7i}{13}
+\end{align*}
+\\
+%(7)
+\subsection{$\tan{\bigl(i + \mbox{\large$\frac{\pi}{3}$}\bigr)}$}
+\begin{align*}
+\sin{(i)} &= \frac{1}{2i}\bigl(e^{ii} - e^{-ii}\bigr)\\
+&= \frac{1}{2i}\bigl(e^{-1} - e^{1}\bigr)\\
+&= \frac{i}{2}\bigl(e - \frac{1}{e}\bigr)\\
+\cos{(i)} &= \frac{1}{2}\bigl(e^{ii} + e^{-ii}\bigr)\\
+&= \frac{1}{2}\bigl(e^{-1} + e^{1}\bigr)\\
+&= \frac{1}{2}\bigl(e + \frac{1}{e}\bigr)\\
+\tan{(i)} &= \frac{\sin{(i)}}{\cos{(i)}}\\
+&= i \frac{e^2-1}{e^2+1}\\
+\tan^2{(i)}&= -\frac{(e^2-1)^2}{(e^2+1)^2}\\
+\end{align*}
+\begin{align*}
+\tan{(i + \frac{\pi}{3})} &= \frac{\tan{i}+\tan{\frac{\pi}{3}}}{1 - \tan{i}\tan{\frac{\pi}{3}}}\\
+&= \frac{\tan{i}+\sqrt{3}}{1 - \sqrt{3}\tan{i}}\\
+&= \frac{\sqrt{3}(1 + \tan^2{i}) + 4\tan{i}}{1 + 3\tan^2{i}}\\
+&= \frac{\sqrt{3}(1 -\frac{(e^2-1)^2}{(e^2+1)^2}) + 4i \frac{e^2-1}{e^2+1}}{1 - 3\frac{(e^2-1)^2}{(e^2+1)^2}}\\
+&= \frac{\sqrt{3}\bigl((e^2+1)^2 - (e^2-1)^2\bigr) + 4i (e^4-1)}{(e^2+1)^2 - 3(e^2-1)^2}\\
+&= \frac{4\sqrt{3}e^2 + 4i (e^4-1)}{4e^4 - 4e^2 + 4}\\
+&= \frac{\sqrt{3}e^2 + i (e^4-1)}{e^4 - e^2 + 1}
+\end{align*}
+\\\\
+
+%[2]
+\section{Laurent展開(1)}
+$z = e^{i\theta}$とおくと、
+\begin{align*}
+J_n(w) &= \frac{1}{2\pi i}\oint_{C}\frac{f(z,w)}{z^{n+1}}\mathrm{d}z\\
+&= \frac{1}{2\pi i}\int_{-\pi}^{\pi}\frac{\exp{\bigl(\frac{w}{2}(e^{i\theta}-e^{-i\theta})\bigr)}}{\exp{\bigl(i\theta(n+1)\bigr)}}ie^{i\theta}\mathrm{d}\theta\\
+&=\frac{1}{2\pi}\int_{-\pi}^{\pi}\frac{\exp{\bigl(wi\sin{\theta}\bigr)}}{\exp{\bigl(i\theta n\bigr)}}\mathrm{d}\theta\\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}\exp{\bigl(i(w\sin{\theta} - n\theta)\bigr)}\mathrm{d}\theta\\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}\cos{(w\sin{\theta} - n\theta)} + i\sin{(w\sin{\theta} - n\theta)}\mathrm{d}\theta\\
+&= \frac{1}{2\pi}\int_{-\pi}^{\pi}\cos{(w\sin{\theta} - n\theta)}\mathrm{d}\theta \quad (\because \sin{(w\sin{\theta} - n\theta)}は奇関数)
+\end{align*}
+以上より、示された。
+\\\\
+
+%[3]
+\section{Laurent展開(2)}
+%(1)
+\subsection{}
+$$
+\frac{1}{3z^2 - 5z -2} = \frac{1}{7}\biggl(\frac{1}{z-2} - \frac{3}{3z+1}\biggr)
+$$
+
+%(2)
+\subsection{}
+\subsubsection{$|z| < \mbox{\large$\frac{1}{3}$}$}
+\begin{align*}
+\frac{1}{3z^2 - 5z -2} &= \frac{1}{7}\frac{1}{z-2} - \frac{3}{7}\frac{1}{3z+1}\\
+&=-\frac{1}{14}\frac{1}{1 - \frac{z}{2}} - \frac{3}{7}\frac{1}{1 + 3z}\\
+&=\frac{1}{14}\sum_{n = 0}^{\infty}\bigl(\frac{z}{2}\bigr)^n - \frac{3}{7}\sum_{n = 0}^{\infty}(-3z)^n
+\end{align*}
+
+\subsubsection{$\mbox{\large$\frac{1}{3}$} < |z| < 2$}
+\begin{align*}
+\frac{1}{3z^2 - 5z -2} &= \frac{1}{7}\frac{1}{z-2} - \frac{3}{7}\frac{1}{3z+1}\\
+&= -\frac{1}{14}\frac{1}{1 - \frac{z}{2}} - \frac{3}{7}\frac{1}{3z}\frac{1}{1 + \frac{1}{3z}}\\
+&=-\frac{1}{14}\sum_{n = 0}^{\infty}(\frac{z}{2})^n + \frac{3}{7}\sum_{n = 0}^{\infty}(-\frac{1}{3z})^{n+1}
+\end{align*}
+
+\subsubsection{$|z| > 2$}
+\begin{align*}
+\frac{1}{3z^2 - 5z -2} &= \frac{1}{7}\frac{1}{z-2} - \frac{3}{7}\frac{1}{3z+1}\\
+&= \frac{1}{7}\frac{1}{z}\frac{1}{1 - \frac{2}{z}} - \frac{3}{7}\frac{1}{3z}\frac{1}{1 + \frac{1}{3z}}\\
+&=\frac{1}{14}\sum_{n = 0}^{\infty}(\frac{2}{z})^{n+1} + \frac{3}{7}\sum_{n = 0}^{\infty}(-\frac{1}{3z})^{n+1}
+\end{align*}
+\\
+
+\subsection{}
+\begin{align*}
+\oint_{|z| = 1}z^m\mathrm{d}z = \begin{cases}
+2\pi i\quad(m=-1)\\
+0\quad(m=0)
+\end{cases}
+\end{align*}
+なので、(2)における$\mbox{\large$\frac{1}{3}$} < |z| < 2$におけるLairent展開を項別積分すると、
+\begin{align*}
+\oint_{|z| =1}\frac{\mathrm{d}z}{3z^2-5z^2} &= -\frac{1}{14}\sum_{n = 0}^{\infty}\oint_{|z| = 1}(\frac{z}{2})^n\mathrm{d}z  + \frac{3}{7}\sum_{n = 0}^{\infty}\oint_{|z| = 1}(-\frac{1}{3z})^{n+1}\mathrm{d}z \\
+&=  \frac{3}{7}\oint_{|z| = 1}-\frac{1}{3z}\mathrm{d}z\\
+&= -\frac{1}{7}\oint_{|z| = 1}z^{-1}\mathrm{d}z\\
+&= -\frac{2\pi}{7}i
+\end{align*}
+
+
+%[4]
+\section{$\mbox{\Large$\int^{2\pi}_0$}R(\cos{\theta},\sin{\theta})\mathrm{d}\theta$型の積分}
+$z = e^{i\theta}$と置換すると、積分範囲は$|z|=1$、$\mathrm{d}z = \mbox{\Large$\frac{1}{iz}$}\mathrm{d}\theta$
+%(1)
+\subsection{}
+$z = e^{i\theta}$と置換すると、
+\begin{align*}
+\int_0^{2\pi}\frac{\mathrm{d}\theta}{a+\cos{\theta}} &= \oint_{|z|=1}\frac{\mathrm{d}z}{iz(a+\frac{z + z^{-1}}{2})}\\
+&= \frac{2}{i}\oint_{|z|=1}\frac{\mathrm{d}z}{z^2 +2az + 1}
+\end{align*}
+$a>1$より、積分経路の内側にある極は、$z = - a + \sqrt{a^2 -1}$\\
+$z = - a + \sqrt{a^2 -1}$における留数は、
+\begin{align*}
+Res\Bigl(\frac{1}{z^2 +2az + 1}, z = - a + \sqrt{a^2 -1}\Bigr) &= \lim_{z \to - a + \sqrt{a^2 -1}}\bigl(z - (- a + \sqrt{a^2 -1})\bigr)\frac{1}{z^2 +2az + 1}\\
+&= \lim_{z \to - a + \sqrt{a^2 -1}}\frac{1}{z - (- a - \sqrt{a^2 -1})}\\
+&=\frac{1}{- a + \sqrt{a^2 -1} - (- a - \sqrt{a^2 -1})}\\
+&= \frac{1}{2\sqrt{a^2 -1}}
+\end{align*}
+よって、
+\begin{align*}
+\int_0^{2\pi}\frac{\mathrm{d}\theta}{a+\cos{\theta}} &= \frac{2}{i}\oint_{|z|=1}\frac{\mathrm{d}z}{z^2 +2az + 1}\\
+&= \frac{2}{i}\times 2\pi i\times\frac{1}{2\sqrt{a^2 -1}}\\
+&= \frac{2\pi}{\sqrt{a^2 -1}}
+\end{align*}
+\\
+
+%(2)
+\subsection{}
+$z = e^{i\theta}$と置換すると、
+\begin{align*}
+\int_0^{2\pi}\mathrm{d}\theta \frac{\cos{2\theta}}{1-2a\cos{\theta}+a^2} &= \oint_{|z|=1}\mathrm{d}z\frac{\frac{z^2+z^{-2}}{2}}{iz(1-2a\frac{z + z^{-1}}{2}+a^2)}\\
+&= -\frac{1}{2ai}\oint_{|z|=1}\mathrm{d}z\frac{z^4+1}{z^2(z^2 - (a + \frac{1}{a})z +1)}\\
+&= -\frac{1}{2ai}\oint_{|z|=1}\mathrm{d}z\frac{z^4+1}{z^2(z-a)(z-\frac{1}{a})}
+\end{align*}
+$0<a<1$より、積分経路の内側にある極は、$z = 0,a$\\
+2位の極$z = 0$における留数は、
+\begin{align*}
+Res\Bigl(\frac{z^4+1}{z^2(z-a)(z-\frac{1}{a})}, z = 0\Bigr) &= \lim_{z \to 0}\frac{\mathrm{d}}{\mathrm{d}z}\Bigl(z^2\frac{z^4+1}{z^2(z-a)(z-\frac{1}{a})}\Bigr)\\
+&= \lim_{z \to 0}\frac{\mathrm{d}}{\mathrm{d}z}\Bigl(\frac{z^4+1}{z^2 - (a + \frac{1}{a})z +1}\Bigr)\\
+&= \lim_{z \to 0}\frac{z^3(z^2 - (a + \frac{1}{a})z +1\bigr) - (z^4+1)(2z - a - \frac{1}{a})}{\bigl(z^2 - (a + \frac{1}{a})z +1\bigr)^2}\\
+&= a + \frac{1}{a}
+\end{align*}
+1位の極$z = a$における留数は、
+\begin{align*}
+Res\Bigl(\frac{z^4+1}{z^2(z-a)(z-\frac{1}{a})}, z = a\Bigr) &= \lim_{z \to a}(z-a)\frac{z^4+1}{z^2(z-a)(z-\frac{1}{a})}\\
+&= \lim_{z \to a}\frac{z^4+1}{z^2(z-\frac{1}{a})}\\
+&= \frac{a^4+1}{a(a^2-1)}
+\end{align*}
+よって、
+\begin{align*}
+\int_0^{2\pi}\mathrm{d}\theta \frac{\cos{2\theta}}{1-2a\cos{\theta}+a^2} &= -\frac{1}{2ai}\oint_{|z|=1}\mathrm{d}z\frac{z^4+1}{z^2(z-a)(z-\frac{1}{a})}s\frac{1}{2\sqrt{a^2 -1}}\\
+&=-\frac{1}{2ai}\Bigl(2\pi i(a + \frac{1}{a}) +2\pi i (\frac{a^4+1}{a(a^2-1)})\Bigr)\\
+&=-\frac{\pi}{a}\Bigl(\frac{a^4-1}{a(a^2-1)} + \frac{a^4+1}{a(a^2-1)}\Bigr)\\
+&=-\frac{2\pi a^2}{a^2-1}
+\end{align*}
+\\\\
+
+
+%[5]
+\section{$\mbox{\Large$\int$}^{\infty}_{-\infty}R(x)\mathrm{d}x$型の積分}
+%(1)
+\subsection{}
+$$
+I = \int^{\infty}_{-\infty}\frac{\mathrm{d}x}{x^2 - 2x + 2}
+$$
+とおく。
+$$
+\int_{C_x}\frac{\mathrm{d}z}{z^2 - 2z + 2} = \int^{R}_{-R}\frac{\mathrm{d}x}{x^2 - 2x + 2} \to I \quad(R \to \infty)
+$$
+$z = Re^{i\theta}$とおくと、
+\begin{align*}
+\biggl|\int_{C_R}\frac{\mathrm{d}z}{z^2 - 2z + 2}\biggr| &= \biggl|\int^{\pi}_{0}\frac{i Re^{i\theta}\mathrm{d}\theta}{R^2e^{2i\theta} - 2Re^{i\theta} + 2}\biggr|\\
+&= \int^{\pi}_{0}\Bigl|\frac{i Re^{i\theta}\mathrm{d}\theta}{R^2e^{2i\theta} - 2Re^{i\theta} + 2}\Bigr| \to 0 \quad(R \to \infty)\\
+\therefore \quad\int_{C_R}\frac{\mathrm{d}z}{z^2 - 2z + 2} &\to 0 \quad(R \to \infty)
+\end{align*}
+経路$C_x + C_R$の内側にある$\mbox{\Large$\frac{1}{z^2 - 2z + 2}$}$の極は$z = 1+i$であり、一位の極$z = 1+i$における留数は、
+\begin{align*}
+Res\Bigl(\frac{1}{z^2 - 2z + 2}, z = 1+i\Bigr) &= \lim_{z \to 1+i}\bigl(z - (1+i)\bigr)\frac{1}{z^2 - 2z + 2}\\
+&= \lim_{z \to 1+i}\frac{1}{z - (1-i)}\\
+&= \frac{1}{1+i - (1-i)}\\
+&= \frac{1}{2i}\\
+&= -\frac{1}{2}i
+\end{align*}
+より、
+\begin{equation}
+\label{3}
+\int_{C_x + C_R}\frac{\mathrm{d}z}{z^2 - 2z + 2} = 2\pi i \times \bigl(-\frac{1}{2}i\bigr) = \pi
+\end{equation}
+一方、
+\begin{equation}
+\label{4}
+\int_{C_x + C_R}\frac{\mathrm{d}z}{z^2 - 2z + 2} = \int_{C_x}\frac{\mathrm{d}z}{z^2 - 2z + 2} + \int_{C_R}\frac{\mathrm{d}z}{z^2 - 2z + 2} = I
+\end{equation}
+(\ref{3})、(\ref{4})より、
+$$
+\therefore I = \pi
+$$
+\\
+
+%(2)
+\subsection{}
+$$
+I = \int^{\infty}_{-\infty}\mathrm{d}x\frac{x^2 - x + 2}{x^4 + 10x^2 + 9}
+$$
+とおく。
+$$
+\int_{C_x}\mathrm{d}z\frac{z^2 - z + 2}{z^4 + 10z^2 + 9} = \int^{R}_{-R}\mathrm{d}x\frac{x^2 - x + 2}{x^4 + 10x^2 + 9} \to I \quad(R \to \infty)
+$$
+$z = Re^{i\theta}$とおくと、
+\begin{align*}
+\biggl|\int_{C_R}\mathrm{d}z\frac{z^2 - z + 2}{z^4 + 10z^2 + 9}\biggr| &= \biggl|\int^{\pi}_{0}i Re^{i\theta}\mathrm{d}\theta\frac{R^2e^{2i\theta} - Re^{i\theta} + 4}{R^4e^{4i\theta} + 10R^2e^{2i\theta} + 9}\biggr|\\
+&= \int^{\pi}_{0}\mathrm{d}\theta\Bigl|\frac{R^3e^{3i\theta} - R^2e^{2i\theta} + 4Re^{i\theta}}{R^4e^{4i\theta} + 10R^2e^{2i\theta} + 9}\Bigr| \to 0 \quad(R \to \infty)\\
+\therefore \quad\int_{C_R}\mathrm{d}z\frac{z^2 - z + 2}{z^4 - 10z^2 + 9} &\to 0 \quad(R \to \infty)
+\end{align*}
+ここで、
+$$z^4 + 10z^2 + 9 = (z+i)(z-i)(z+3i)(z-3i)$$
+より、
+経路$C_x + C_R$の内側にある$\mbox{\Large$\frac{z^2 - z + 2}{z^4 - 10z^2 + 9}$}$の極は$z =  i,3i$であり、\\
+一位の極$z = i$における留数は、
+\begin{align*}
+Res\Bigl(\frac{z^2 - z + 2}{z^4 - 10z^2 + 9}, z = i\Bigr) &= \lim_{z \to i}\bigl(z - i\bigr)\frac{z^2 - z + 2}{z^4 - 10z^2 + 9}\\
+&= \lim_{z \to i}\frac{z^2 - z + 2}{(z+i)(z+3i)(z-3i)}\\
+&= \frac{-1-i+2}{2i\times 4i \times (-2i)}\\
+&= \frac{1-i}{16i}\\
+&= -\frac{1+i}{16}
+\end{align*}
+一位の極$z = 3i$における留数は、
+\begin{align*}
+Res\Bigl(\frac{z^2 - z + 2}{z^4 - 10z^2 + 9}, z = 3i\Bigr) &= \lim_{z \to 3i}\bigl(z - 3i\bigr)\frac{z^2 - z + 2}{z^4 - 10z^2 + 9}\\
+&= \lim_{z \to 3i}\frac{z^2 - z + 2}{(z-i)(z+i)(z+3i)}\\
+&= \frac{-9-3i+2}{2i\times 4i \times 6i}\\
+&= \frac{-7-3i}{-48i}\\
+&= \frac{3-7i}{48}
+\end{align*}
+よって、
+\begin{equation}
+\label{1}
+\int_{C_x + C_R}\mathrm{d}z\frac{z^2 - z + 2}{z^4 + 10z^2 + 9} = 2\pi i \times \bigl(-\frac{1+i}{16}\bigr)  + 2\pi i \times \bigl(\frac{3-7i}{48}\bigr) = \frac{5\pi}{12}
+\end{equation}
+一方、
+\begin{equation}
+\label{2}
+\int_{C_x + C_R}\mathrm{d}z\frac{z^2 - z + 2}{z^4 + 10z^2 + 9} = \int_{C_x}\mathrm{d}z\frac{z^2 - z + 2}{z^4 + 10z^2 + 9} + \int_{C_R}\mathrm{d}z\frac{z^2 - z + 2}{z^4 + 10z^2 + 9} = I
+\end{equation}
+(\ref{1})、(\ref{2})より、
+$$
+\therefore I = \frac{5\pi}{12}
+$$
+\\
+
+%(3)
+\subsection{}
+$$
+I = \int^{\infty}_{-\infty}\mathrm{d}x\frac{x^4}{(x^2+2)^2(x^2+3)}
+$$
+とおく。
+$$
+\int_{C_x}\mathrm{d}z\frac{z^4}{(z^2+2)^2(z^2+3)} = \int^{R}_{-R}\mathrm{d}x\frac{x^4}{(x^2+2)^2(x^2+3)} \to I \quad(R \to \infty)
+$$
+$z = Re^{i\theta}$とおくと、
+\begin{align*}
+\biggl|\int_{C_R}\mathrm{d}z\frac{z^4}{(z^2+2)^2(z^2+3)}\biggr| 
+&= \biggl|\int^{\pi}_{0}i Re^{i\theta}\mathrm{d}\theta\frac{R^4e^{4i\theta}}{(R^2e^{2i\theta} + 2)^2(R^2e^{2i\theta} + 3)}\biggr|\\
+&= \int^{\pi}_{0}\mathrm{d}\theta\Bigl|\frac{R^5e^{5i\theta}}{(R^2e^{2i\theta} + 2)^2(R^2e^{2i\theta} + 3)}\Bigr| \to 0 \quad(R \to \infty)\\
+\therefore \quad\int_{C_R}\mathrm{d}z\frac{z^4}{(z^2+2)^2(z^2+3)} &\to 0 \quad(R \to \infty)
+\end{align*}
+経路$C_x + C_R$の内側にある$\mbox{\Large$\frac{z^4}{(z^2+2)^2(z^2+3)}$}$の極は$z =  \sqrt{2}i,\sqrt{3}i$であり、\\
+二位の極$z = \sqrt{2}i$における留数は、
+\begin{align*}
+Res\Bigl(\frac{z^4}{(z^2+2)^2(z^2+3)}, z = \sqrt{2}i\Bigr) &= \lim_{z \to\sqrt{2}i}\frac{\mathrm{d}}{\mathrm{d}z}\biggl(\bigl(z - \sqrt{2}i\bigr)^2\frac{z^4}{(z^2+2)^2(z^2+3)}\biggr)\\
+&= \lim_{z \to\sqrt{2}i}\frac{\mathrm{d}}{\mathrm{d}z}\biggl(\frac{z^4}{(z + \sqrt{2}i)^2(z^2+3)}\biggr)\\
+&=  \lim_{z \to\sqrt{2}i}\frac{z^3(z + \sqrt{2}i)^2(z^2+3)-z^42(z + \sqrt{2}i)(z^2+3)-z^4(z + \sqrt{2}i)^22z}{(z + \sqrt{2}i)^4(z^2+3)^2}\\
+&= \frac{-2\sqrt{2}i\times(2\sqrt{2}i)^2 \times (-2 + 3) - 16\times2\sqrt{2}i \times (-2 + 3) - 8 \times(2\sqrt{2}i)^2 \times2\sqrt{2}i}{(2\sqrt{2}i)^4 \times (-2 + 3)^2}\\
+&= \frac{7\sqrt{2}}{4}i
+\end{align*}
+一位の極$z = \sqrt{3}i$における留数は、
+\begin{align*}
+Res\Bigl(\frac{z^4}{(z^2+2)^2(z^2+3)}, z = \sqrt{3}i\Bigr) &= \lim_{z \to \sqrt{3}i}\bigl(z - \sqrt{3}i\bigr)\frac{z^4}{(z^2+2)^2(z^2+3)}\\
+&= \lim_{z \to \sqrt{3}i}\frac{z^4}{(z^2+2)^2(z+\sqrt{3}i)}\\
+&= \frac{9}{(-3 + 2)^2 \times 2\sqrt{3}i}\\
+&= -\frac{3\sqrt{3}i}{2}
+\end{align*}
+よって、
+\begin{equation}
+\label{5}
+\int_{C_x + C_R}\mathrm{d}z\frac{z^4}{(z^2+2)^2(z^2+3)} = 2\pi i \times \bigl(\frac{7\sqrt{2}}{4}i\bigr)  + 2\pi i \times \bigl(-\frac{3\sqrt{3}i}{2}\bigr) = \Bigl(3\sqrt{3} - \frac{7\sqrt{2}}{2}\Bigr)\pi
+\end{equation}
+一方、
+\begin{equation}
+\label{6}
+\int_{C_x + C_R}\mathrm{d}z\frac{z^4}{(z^2+2)^2(z^2+3)} = \int_{C_x}\mathrm{d}z\frac{z^2 - z + 2}{z^4 + 10z^2 + 9} + \int_{C_R}\mathrm{d}z\frac{z^2 - z + 2}{z^4 + 10z^2 + 9} = I
+\end{equation}
+(\ref{5})、(\ref{6})より、
+$$
+\therefore I = \Bigl(3\sqrt{3} - \frac{7\sqrt{2}}{2}\Bigr)\pi
+$$
+
+\end{document}

@@ -1,0 +1,226 @@
+%\documentclass[a4paper]{jarticle} 
+\documentclass[dvipdfmx,a4paper]{jsarticle}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\topmargin = 0mm
+\oddsidemargin = 5mm
+\textwidth = 152mm
+\textheight = 240mm
+
+
+% サブセクションを 問1,問2 にする設定
+\renewcommand{\thesection}{[\arabic{section}]}
+
+% サブサブセクションを (1),(2)にする設定
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+% (i),(ii)なら \arabic を \roman に変える。    (a),(b)なら \alph
+
+\renewcommand{\thesubsubsection}{(\roman{subsubsection})}
+
+% 大問2の3番目の計算式のラベルを (2.3) にする設定
+% 計算式の参照には \eqref{eq:hoge} を使う
+\makeatletter
+  \renewcommand{\theequation}{\arabic{subsection}.\arabic{equation}}
+  \@addtoreset{equation}{subsection}
+\makeatother
+
+% --------------------------------------------------------------------
+\begin{document}
+
+% タイトル
+\begin{center}
+\textbf{\huge{数学２D演習　第8回}}
+\end{center}
+
+%名前
+\begin{flushright}
+工学部電気電子工学科3年　03200489　末吉七海\\
+\end{flushright}
+
+% --------------------------------------------------------------------
+% [1]
+\section{復習}
+略
+
+%[2]
+\section{}
+略
+
+%[3]
+\section{和の公式}
+略
+
+%[4]
+\section{}
+略
+
+%[5]
+\section{$\Gamma$関数の漸近展開}
+%(1)
+\subsection{}
+$t = x\tau$と変数変換すると、
+\begin{align*}
+\Gamma(x + 1) &= \int_{0}^{\infty}e^{-t}t^{x}\mathrm{d}t\\
+& = \int_{0}^{\infty}e^{-t + x\ln{t}}\mathrm{d}t\\
+&=  \int_{0}^{\infty}e^{-x\tau + x\ln{x\tau}}x\mathrm{d}\tau\quad(t = x\tau)\\
+&= \int_{0}^{\infty}e^{(\ln{\tau}-\tau)x} x^{x + 1}\mathrm{d}\tau\\
+&=  x^{x + 1}\int_{0}^{\infty}e^{(\ln{\tau}-\tau)x}\mathrm{d}\tau\\
+\end{align*}
+と変形できるので、$$f(\tau) = \ln{\tau}-\tau$$\\
+
+%(2)
+\subsection{}
+$\partial_{\tau}f(\tau) = \mbox{\Large$\frac{1}{\tau}$} - 1 \geq 0$ とすると、$\tau \leq 1$であるので、$f(\tau)$が最大となるときの$\tau$は、$$\tau_0 = 1$$
+また、
+$$\partial_{\tau\tau}f(\tau) = \partial_{\tau}\Bigl(\frac{1}{\tau}-1\Bigr) = -\frac{1}{\tau^2}$$
+よって、$\tau = \tau_0$における2次までのTaylor展開は、
+\begin{align*}
+f(\tau) &\approx f(\tau_0) + \partial_{\tau}|_{\tau = \tau_0}(\tau - \tau_0) + \frac{1}{2}\partial_{\tau\tau}|_{\tau = \tau_0}(\tau - \tau_0)^2\\
+&= -1 + \ln{1} + 0 + \frac{1}{2} \times (-\frac{1}{1^2})\times(\tau - 1)^2\\
+&= -1 - \frac{1}{2}(\tau - 1)^2
+\end{align*}
+これを(1)の式に代入すると、
+\begin{align*}
+\Gamma(x + 1) &= x^{x + 1}\int_{0}^{\infty}e^{(\ln{\tau}-\tau)x}\mathrm{d}\tau\\
+&\approx x^{x + 1}\int_{0}^{\infty}e^{\bigl(-1 - \frac{1}{2}(\tau - 1)^2\bigr)x}\mathrm{d}\tau\\
+&= x^{x + 1}e^{-x}\int_{0}^{\infty}e^{-\frac{x}{2}(\tau - 1)^2}\mathrm{d}\tau\\
+&\approx x^{x + 1}e^{-x}\int_{0}^{\infty}e^{-\frac{x}{2}\tau^2}\mathrm{d}\tau\\
+&= x^{x + 1}e^{-x}\sqrt{\frac{2\pi}{x}}\\
+&= x^xe^{-x}\sqrt{2\pi x}
+\end{align*}
+\\
+
+%(3)
+\subsection{}
+$\Gamma(n+1) = n!$より、(2)の結果と比較して、
+$$n! = n^xe^{-n}\sqrt{2\pi n}$$
+両辺自然対数とって、
+\begin{align*}
+\ln{n!} &\approx \ln{(n^xe^{-n}\sqrt{2\pi n})}\\
+&= n\ln{n} - n + \frac{1}{2} \ln{2\pi n}
+\end{align*}
+以上より、Staringの近似式$$\ln{n! = n\ln{n} - n + \frac{1}{2} \ln{2\pi n}}$$が導かれた。\\
+
+%(4)
+\subsection{}
+$f(\tau) = - \tau + \ln{\tau} = -1 + \xi ^2$の両辺微分すると、
+\begin{equation}
+\label{1}
+-1  + \frac{1}{\tau} = -2 \xi \frac{\mathrm{d}\xi}{\mathrm{d}\tau}
+\end{equation}
+$\tau = \tau(\xi) = a_0 + a_1\xi + a_2 \xi^2 + a_3\xi^3$として、式(\ref{1})の両辺を$\tau = 1$すなわち$\xi = 0$の周りでTaylor展開することを考えると、
+\begin{align*}
+(左辺) &= -1  + \frac{1}{\tau}\\
+&\approx -1 + \frac{1}{\tau(0)} - \frac{1}{\tau(0)^2}\partial_{\xi} \tau(0) \xi + \frac{1}{2} \bigr(\frac{2}{\tau(0)^3}\partial_{\xi} \tau(0)\partial_{\xi} \tau(0) - \frac{1}{\tau(0)^2}\partial_{\xi}^2 \tau(0)\bigl) \xi^2 \\
+&\qquad+ \frac{1}{6}\bigl( -\frac{6}{\tau(0)^4}\partial_{\xi} \tau(0)\bigl(\partial_{\xi} \tau(0)\bigr)^2 +\frac{4}{\tau(0)^3}\partial_{\xi}^2 \tau(0)\partial_{\xi} \tau(0)  + \frac{2}{\tau(0)^3}\partial_{\xi}^2 \tau(0)\partial_{\xi} \tau(0) - \frac{1}{\tau(0)^2}\partial_{\xi}^3 \tau(0)\bigr) \xi^3\\
+&= -1 + \frac{1}{a_0} - \frac{a_1}{a_0^2}\xi  + \frac{a_1^2 - a_0a_2}{a_0^3}\xi^2 -\frac{a_1^3 - 2a_0a_1a_2 + a_0^2a_3}{{a_0}^4}\xi^3\\
+(右辺) &= -2 \xi \frac{\mathrm{d}\xi}{\mathrm{d}\tau}\\
+&= -2 \xi \frac{1}{\partial_{\xi} \tau}\\
+&\approx -2 \xi \biggl(\frac{1}{\partial_{\xi} \tau(0)} - \frac{1}{\partial_{\xi} \tau(0)^2}\partial_{\xi}^2 \tau(0)\xi + \frac{1}{2}\frac{2}{\partial_{\xi} \tau(0)^3}\partial_{\xi}^2 \tau(0)^2\xi^2 -\frac{1}{2}\frac{1}{\partial_{\xi} \tau(0)^2}\partial_{\xi}^3 \tau(0)\xi^2\biggr)\\
+&= - \frac{2}{a_1}\xi + \frac{4a_2}{{a_1}^2}\xi^2 -\frac{8{a_2}^2 - 6a_1a_3}{{a_1}^3}\xi^3
+\end{align*}
+両辺の係数を比べると、
+\begin{align*}
+\left\{ \begin{array}{ll}
+-1 + \mbox{\Large$\frac{1}{a_0}$} = 0 \\
+- \mbox{\Large$\frac{{a_1}}{{a_0}^2}$} = - \mbox{\Large$\frac{2}{a_1}$} \\
+\mbox{\Large$\frac{a_1^2 - a_0a_2}{a_0^3}$} = \mbox{\Large$\frac{4a_2}{{a_1}^2}$}\\
+-\mbox{\Large$\frac{a_1^3 - 2a_0a_1a_2 + a_0^2a_3}{a_0^4}$} = -\mbox{\Large$\frac{8{a_2}^2 - 6a_1a_3}{{a_1}^3}$}
+\end{array} \right.
+\qquad\therefore \quad
+\left\{ \begin{array}{ll}
+a_0 = 1 \\
+a_1 = \sqrt{2} \\
+a_2 = \mbox{\Large$\frac{2}{3}$}\\
+a_3 = \mbox{\Large$\frac{1}{9\sqrt{2}}$}
+\end{array} \right.
+\end{align*}
+よって
+\begin{align*}
+\Gamma(x + 1) &= x^{x + 1}\int_{0}^{\infty}e^{f(\tau)x} \mathrm{d}\tau\\
+&= x^{x + 1}\int_{-\infty}^{\infty} e^{x(1 - \xi^2)}\frac{\mathrm{d}\tau}{\mathrm{d}\xi}\mathrm{d}\xi\\
+&= x^{x + 1}e^{-x}\int_{-\infty}^{\infty} e^{x(1 - \xi^2)}\Bigl(\sqrt{2} + \frac{4}{3}\xi + \frac{1}{3\sqrt{2}}xi^2 + \cdots\Bigr)\mathrm{d}\xi\\
+&= x^{x + 1}e^{-x}\Bigl(\sqrt{2}\sqrt{\frac{\pi}{x}} + 0  + \frac{1}{3\sqrt{2}}\frac{1}{2x}{\frac{\pi}{x}} + \cdots\Bigr)\\
+&= x^xe^{-x}\sqrt{2\pi x}\bigl(1 + \frac{1}{12x} + \cdots\bigr)
+\end{align*}
+\\\\
+
+%[6]
+\section{d次元球の表面積・体積}
+%(1)
+\subsection{}
+ガウス積分を用いると、
+\begin{align*}
+I &= \int_{-\infty}^{\infty}\mathrm{d}x_1\int_{-\infty}^{\infty}\mathrm{d}x_2\cdots\int_{-\infty}^{\infty}\mathrm{d}x_de^{-a({x_1}^2 + {x_2}^2 + \cdots + {x_d}^2)}\\
+&= \int_{-\infty}^{\infty}\mathrm{d}x_1e^{-a{x_1}^2} \int_{-\infty}^{\infty}\mathrm{d}x_2e^{-a{x_2}^2} \cdots\int_{-\infty}^{\infty}\mathrm{d}x_de^{-a{x_d}^2} \\
+&=\Bigl(\frac{\pi}{a}\Bigr)^{\frac{d}{2}}
+\end{align*}
+\\
+%(2)
+\subsection{}
+$S_d(r) = s_dr^{d-1}$と書けるので、
+\begin{align*}
+I &= \int_0^{\infty}\mathrm{d}rS_d(r)e^{-ar^2}\\
+&= \int_0^{\infty}\mathrm{d}rs_dr^{d-1}e^{-ar^2}\\
+&=s_d\int_0^{\infty}\mathrm{d}r r^{d-1}e^{-ar^2}
+\end{align*}
+dが偶数の時、
+\begin{align*}
+I &=s_d\int_0^{\infty}\mathrm{d}r r^{d-1}e^{-ar^2}\\
+&=s_d\Bigl(\frac{\mathrm{d}}{\mathrm{d}(-a)}\Bigr)^{\frac{d}{2}-1}\int_0^{\infty}\mathrm{d}r re^{-ar^2}\\
+&= s_d\Bigl(\frac{\mathrm{d}}{\mathrm{d}(-a)}\Bigr)^{\frac{d}{2}-1}\Bigl(\frac{1}{2a}\Bigr)\\
+&= s_d\Bigl(\frac{d}{2}-1\Bigr)!\frac{1}{2a^{\frac{d}{2}}} \\
+&= s_d\frac{1}{2a^{\frac{d}{2}}}\Gamma\Bigl(\frac{d}{2}\Bigr)
+\end{align*}
+dが奇数の時、
+\begin{align*}
+I &=s_d\int_0^{\infty}\mathrm{d}r r^{d-1}e^{-ar^2}\\
+&=s_d\Bigl(\frac{\mathrm{d}}{\mathrm{d}(-a)}\Bigr)^{\frac{d-1}{2}}\int_0^{\infty}\mathrm{d}  re^{-ar^2}\\
+&= s_d\Bigl(\frac{\mathrm{d}}{\mathrm{d}(-a)}\Bigr)^{\frac{d-1}{2}}\frac{1}{2}\sqrt{\frac{\pi}{a}}\\
+&= s_d\frac{\sqrt{\pi}}{2}\times\frac{1}{2}\times\frac{3}{2}\times\frac{5}{2}\times\cdots\times\frac{d-2}{2}\times\frac{1}{a^{\frac{d}{2}}}\\
+&= s_d\frac{1}{2a^{\frac{d}{2}}}\Gamma\Bigl(\frac{1}{2}\Bigr)\times\frac{1}{2}\times\frac{3}{2}\times\frac{5}{2}\times\cdots\times\frac{d-2}{2}\quad(\therefore\Gamma\Bigl(\frac{1}{2}\Bigr) = \sqrt{\pi})\\
+&= s_d\frac{1}{2a^{\frac{d}{2}}}\Gamma\Bigl(\frac{3}{2}\Bigr)\times\frac{3}{2}\times\frac{5}{2}\times\cdots\times\frac{d-2}{2}\quad(\therefore z\Gamma(z) = \Gamma(z + 1)\\
+&= s_d\frac{1}{2a^{\frac{d}{2}}}\Gamma\Bigl(\frac{5}{2}\Bigr)\times\frac{5}{2}\times\cdots\times\frac{d-2}{2}\\
+&= \cdots\\
+&= s_d\frac{1}{2a^{\frac{d}{2}}}\Gamma\Bigl(\frac{d}{2}\Bigr)
+\end{align*}
+これはdが偶数の時に等しい。
+よって、$$I = s_d\frac{1}{2a^{\frac{d}{2}}}\Gamma\Bigl(\frac{d}{2}\Bigr) $$
+\\
+%(3)
+\subsection{}
+(1)と(2)を比較して、
+$$
+s_d = \frac{2\pi^{\frac{d}{2}}}{\Gamma\bigl(\frac{d}{2}\bigr)}
+$$
+従って、
+$$
+S_d(r) = s_dr^{d-1} = \frac{2\pi^{\frac{d}{2}}}{\Gamma\bigl(\frac{d}{2}\bigr)}r^{d-1}
+$$
+\\
+%(4)
+\subsection{}
+体積は、
+\begin{align*}
+V_d(r) &= \int_0^d \mathrm{d}rS_d(r)\\ 
+&= \int_0^r \mathrm{d}r'\frac{2\pi^{\frac{d}{2}}}{\Gamma\bigl(\frac{d}{2}\bigr)}r'^{d-1}\\
+&= \frac{2\pi^{\frac{d}{2}}}{\Gamma\bigl(\frac{d}{2}\bigr)}\Bigl[\frac{1}{d}r'^d\Bigr]_0^r\\
+&= \frac{2\pi^{\frac{d}{2}}}{\Gamma\bigl(d\frac{d}{2}\bigr)}r^d
+\end{align*}
+\\
+%(5)
+\subsection{}
+(3)、(4)より、$$V_d(r) = \frac{r}{d}S_d(r)$$
+$d = 2$のとき、
+\begin{align*}
+S_2(r) &= \frac{2\pi}{\Gamma\bigl(1\bigr)}r = 2\pi r\\
+V_2(r) &= \frac{2\pi}{\Gamma\bigl(2\bigr)}r^2 = \pi r^2
+\end{align*}
+$d = 3$のとき、
+\begin{align*}
+S_3(r) &= \frac{2\pi^{\frac{3}{2}}}{\Gamma\bigl(\frac{3}{2}\bigr)}r^{2} = \frac{2\pi^{\frac{3}{2}}}{\frac{\sqrt{\pi}}{2}}r^{2} = 4\pi r^2\\
+V_3(r) &= \frac{r}{d}S_d(r) = \frac{4}{3}\pi r^3
+\end{align*}
+
+\end{document}

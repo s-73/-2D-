@@ -1,0 +1,352 @@
+%\documentclass[a4paper]{jarticle} 
+\documentclass[dvipdfmx,a4paper]{jsarticle}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\topmargin = 0mm
+\oddsidemargin = 5mm
+\textwidth = 152mm
+\textheight = 240mm
+
+
+% サブセクションを 問1,問2 にする設定
+\renewcommand{\thesection}{[\arabic{section}]}
+
+% サブサブセクションを (1),(2)にする設定
+\renewcommand{\thesubsection}{\arabic{subsection}.}
+% (i),(ii)なら \arabic を \roman に変える。    (a),(b)なら \alph
+
+\renewcommand{\thesubsubsection}{(\arabic{subsubsection})}
+
+% 大問2の3番目の計算式のラベルを (2.3) にする設定
+% 計算式の参照には \eqref{eq:hoge} を使う
+\makeatletter
+  \renewcommand{\theequation}{\arabic{subsection}.\arabic{equation}}
+  \@addtoreset{equation}{subsection}
+\makeatother
+
+% --------------------------------------------------------------------
+\begin{document}
+
+% タイトル
+\begin{center}
+\textbf{\huge{数学２D演習　第４回}}
+\end{center}
+
+%名前
+\begin{flushright}
+工学部電気電子工学科3年　03200489　末吉七海\\
+\end{flushright}
+
+% --------------------------------------------------------------------
+% 問1
+\section{実関数積分への応用}
+
+%(1)
+\subsection{}
+\begin{align*}
+\int_a^b\mathrm{d}x \, e^{-ux}\cos{(x)}& = \Re{\biggl[\int_a^b\mathrm{d}z \, e^{-uz}e^{iz}\biggr]}\\
+&= \Re{\biggl[\int_a^b\mathrm{d}z \, e^{(i-u)z}\biggr]}\\
+&= \Re \Biggl[\biggl[\frac{1}{i-u}e^{(i-u)z}\biggr]_a^b\Biggr]\\
+&= \Re \biggl[\frac{-u-i}{u^2+1}\Bigl(e^{(i-u)b} - e^{(i-u)a}\Bigr)\biggr]\\
+&=\frac{1}{u^2+1}\Bigl(e^{-ub}\bigl(-u\cos{(b)} + \sin{(b)}\bigr) + e^{-ua}\bigl(-u\cos{(a)} + \sin{(a)}\bigr)\Bigr)\\
+\end{align*}
+
+%(2)
+\subsection{}
+\begin{align*}
+\int_a^b\mathrm{d}x \, xe^{-ux}\sin{(x)}& = \Im {\biggl[-\frac{\mathrm{d}}{\mathrm{d}u}\int_a^b\mathrm{d}z \, ze^{-uz}e^{iz}\biggr]}\\
+&= \Im{\biggl[-\frac{\mathrm{d}}{\mathrm{d}u}\int_a^b\mathrm{d}z \, e^{(i-u)z}\biggr]}\\
+&= \Im \Biggl[-\frac{\mathrm{d}}{\mathrm{d}u}\biggl[\frac{1}{i-u}e^{(i-u)z}\biggr]_a^b\Biggr]\\
+&= \Im \Biggl[-\frac{\mathrm{d}}{\mathrm{d}u}\biggl(\frac{-u-i}{u^2+1}\Bigl(e^{(i-u)b} - e^{(i-u)a}\Bigr)\biggr)\Biggl]\\
+&=-\frac{\mathrm{d}}{\mathrm{d}u}\biggl(\frac{1}{u^2+1}\Bigl(-e^{-ub}\bigl(\cos{(b)} + u\sin{(b)}\bigr) + e^{-ua}\bigl(\cos{(a)} + u\sin{(a)}\bigr)\Bigr)\biggr)\\
+&= \frac{1}{(u^2+1)^2}\Bigl(e^{-ua}\bigl((u^2 a + a + 2u)\cos{(a)} + (u^3a + u^2 + ua -1)\sin{(a)}\bigr)\\ 
+&\qquad \qquad \qquad- e^{-ua}\bigl((u^2 b + b + 2u)\cos{(b)} + (u^3b + u^2 + ub -1)\sin{(b)}\bigr)\Bigr)\\
+\end{align*}
+
+%[2]
+\section{特異点の分類とLaurent展開}
+%1.
+\subsection{}
+\subsubsection{$\mbox{\Large $\frac{1}{z(z-2)^3}$}$}
+1位の極$z = 0$と3位の極$z = 2$を持つ。\\
+$z = 0$における留数は、
+$$
+z\frac{1}{z(z-2)^3}\biggl|_{z = 0} = \frac{1}{(z-2)^3}\biggl|_{z = 0} = -\frac{1}{8}
+$$
+$z = 2$における留数は、
+$$
+\frac{1}{2!}\frac{\mathrm{d}^2}{\mathrm{d}z^2}(z-2)^3frac{1}{z(z-2)^3}\biggl|_{z = 2} = \frac{1}{z^3}\biggl|_{z = 2} = \frac{1}{8}
+$$
+\\
+
+\subsubsection{$\mbox{\Large $\frac{1}{z^3-1}$}$}
+1位の極$z = 1, -\mbox{\large $\frac{1}{2}$} \pm i \mbox{\large$\frac{\sqrt{3}}{2}$}$と3位の極$z = 2$を持つ。\\
+$z = 1$における留数は、
+$$
+(z-1)\frac{1}{z^3-1}\biggl|_{z = 1} = \frac{1}{z^2 + z + 1}\biggl|_{z = 1} = \frac{1}{3}
+$$
+$z =  -\mbox{\large $\frac{1}{2}$} + i \mbox{\large$\frac{\sqrt{3}}{2}$}$における留数は、
+$$
+(z - \frac{1}{2} - i\frac{\sqrt{3}}{2})\frac{1}{z^3-1}\biggl|_{z = -\frac{1}{2} + i\frac{\sqrt{3}}{2}} = \frac{1}{(z-1)(z + \frac{1}{2} + i\frac{\sqrt{3}}{2})}\biggl|_{z = -\frac{1}{2} + i\frac{\sqrt{3}}{2}}\\
+= \frac{1}{i\sqrt{3}(-\frac{3}{2} + i\frac{\sqrt{3}}{2})} = \frac{-1 + i\sqrt{3}}{6}
+$$
+$z =  -\mbox{\large $\frac{1}{2}$} - i \mbox{\large$\frac{\sqrt{3}}{2}$}$における留数は、
+$$
+(z - \frac{1}{2} + i\frac{\sqrt{3}}{2})\frac{1}{z^3-1}\biggl|_{z = -\frac{1}{2} - i\frac{\sqrt{3}}{2}} = \frac{1}{(z-1)(z + \frac{1}{2} - i\frac{\sqrt{3}}{2})}\biggl|_{z = -\frac{1}{2} - i\frac{\sqrt{3}}{2}}
+= \frac{1}{-i\sqrt{3}(-\frac{3}{2} - i\frac{\sqrt{3}}{2})} = \frac{-1 - i\sqrt{3}}{6}
+$$
+\\
+
+\subsubsection{$\mbox{\Large $\frac{\exp{(iz)}}{z(z-i)}$}$}
+1位の極$z = 0, i$を持つ。\\
+$z = 0$における留数は、
+$$
+z\frac{\exp{(iz)}}{z(z-i)}\biggr|_{z = 0} = \frac{\exp{(iz)}}{z-i}\biggr|_{z = 0} = i
+$$
+$z = i$における留数は、
+$$
+(z-i)\frac{\exp{(iz)}}{z(z-i)}\biggr|_{z = i} = \frac{\exp{(iz)}}{z}\biggr|_{z = i} = -\frac{i}{e}
+$$
+\\
+
+%2.
+\subsection{}
+\subsubsection{$\sin{\bigl(\mbox{\Large$\frac{1}{z}$}\bigr)}$}
+$\sin{x}$のTaylor展開は、
+$$
+\sin{x} = \sum^{\infty}_{n = 0}\frac{(-1)^n x^{2n+1}}{(2n + 1)!}
+$$
+$x \to \mbox{\large $\frac{1}{z}$}$と置換すると、$\sin{z}$のLaurent展開が得られ、
+$$
+\sin{\frac{1}{z}} = \sum^{\infty}_{n = 0}\frac{(-1)^n x^{-(2n+1)}}{(2n + 1)!}
+$$
+このLaurent展開より$z=0$は真性特異点であると言える。\\
+また、$z =0$における留数は、Laurent展開の$\mbox{\Large$\frac{1}{z}$}$の係数に等しいので、1。\\
+
+\subsubsection{$\mbox{\Large$\frac{1- \cos{z}}{z^3}$}$}
+$\cos{x}$のTaylor展開は、
+$$
+\cos{x} = \sum^{\infty}_{n = 0}\frac{(-1)^n x^{2n}}{(2n)!}
+$$
+よって、$\mbox{\Large$\frac{1- \cos{z}}{z^3}$}$のLaurent展開は、
+\begin{align*}
+\frac{1- \cos{z}}{z^3} &= \frac{1}{z^3} - \sum^{\infty}_{n = 0}\frac{(-1)^n z^{2n-3}}{(2n)!}\\
+&= -\sum^{\infty}_{n = 1}\frac{(-1)^n z^{2n-3}}{(2n)!}
+\end{align*}
+このLaurent展開より$z=0$は１位の極であると言える。\\
+また、$z =0$における留数は、Laurent展開の$\mbox{\Large$\frac{1}{z}$}$の係数に等しいので、$\mbox{\Large$\frac{1}{2}$}$。\\
+
+\subsubsection{$\mbox{\Large$\frac{1}{z^2+1}$}$}
+$\mbox{\Large$\frac{1}{z^2+1}$}$のLaurent展開は、
+\begin{align*}
+\frac{1}{z^2+1} &= \frac{1}{(z-i)(z+i)}\\
+&= \frac{1}{(z-i)(2i + z-i)}\\
+&= \frac{1}{z-i}\frac{1}{2i}\frac{1}{1 + \frac{z-i}{2i}}\\
+&= \frac{1}{z-i}\frac{1}{2i} \sum^{\infty}_{n=0}\Bigl(-\frac{z-i}{2i}\Bigr)^n\\
+&= \frac{1}{4}\sum^{\infty}_{n=-1}\Bigl(-\frac{z-i}{2i}\Bigr)^n
+\end{align*}
+このLaurent展開より$z=0$は１位の極であると言える。\\
+また、$z =0$における留数は、Laurent展開の$\mbox{\Large$\frac{1}{z-i}$}$の係数に等しいので、$\mbox{\Large$-\frac{i}{2}$}$。\\
+
+\subsubsection{$\mbox{\Large$\frac{\sin{z}}{z}$}$}
+$\sin{x}$のTaylor展開は、
+$$
+\sin{x} = \sum^{\infty}_{n = 0}\frac{(-1)^n x^{2n+1}}{(2n + 1)!}
+$$
+$\mbox{\Large$\frac{\sin{z}}{z}$}$のLaurent展開は、
+\begin{align*}
+\frac{\sin{z}}{z} &= \sum^{\infty}_{n = 0}\frac{(-1)^n z^{2n}}{(2n + 1)!}
+\end{align*}
+このLaurent展開より$z=0$は除去可能特異点であると言える。\\
+よって、$z =0$における留数は0。\\
+
+\subsubsection{$\mbox{\Large$\frac{z^3}{(z-1)^4}$}$}
+$\mbox{\Large$\frac{z^3}{(z-1)^4}$}$のLaurent展開は、
+\begin{align*}
+\frac{z^3}{(z-1)^4} &= \frac{(z-1)^3}{(z-1)^4} + \frac{3z^2 - 3z +1}{(z-1)^4}\\
+&= \frac{1}{z-1} + \frac{3(z-1)^2}{(z-1)^4} + \frac{3z -2}{(z-1)^4}\\
+&= \frac{1}{z-1} + \frac{3}{(z-1)^2} + \frac{3(z-1)}{(z-1)^4} + \frac{1}{(z-1)^4}\\
+&= \frac{1}{z-1} + \frac{3}{(z-1)^2} + \frac{3}{(z-1)^3} + \frac{1}{(z-1)^4}
+\end{align*}
+このLaurent展開より$z=1$は4位の極であると言える。\\
+また、$z =0$における留数は、
+$$
+Res\Bigl[\frac{z^3}{(z-1)^4}, z = 1\Bigr] = \lim_{z \to 1}\frac{\mathrm{d}}{\mathrm{d}z}\frac{1}{3!}(z-1)^4\frac{z^3}{(z-1)^4} = 1
+$$\\
+
+\subsubsection{$\mbox{\Large$\frac{z}{\sin{z}}$}$}
+$$
+C_n = \frac{1}{2\pi i}\oint_{|\xi - \pi| = \epsilon}\frac{\xi}{\sin{\xi}(\xi - \pi)n+1}\mathrm{d}\xi
+$$
+$\xi = \pi + \epsilon e^{i\theta}, \theta \in [0, 2\pi)$（$\epsilon<<1$）とおき、上の式に代入すると、
+\begin{align*}
+C_n &= \frac{1}{2\pi i}\int_{0}^{2\pi}\frac{\pi + \epsilon e^{i\theta}}{\sin{\pi + \epsilon e^{i\theta}}}\frac{i\epsilon e^{i\theta}}{(\epsilon e^{i\theta})^{n+1}}\mathrm{d}\theta\\
+&\approx -\frac{1}{2\pi i}\int_{0}^{2\pi}\frac{\pi + \epsilon e^{i\theta}}{\epsilon e^{i\theta}\bigl(1 - \frac{1}{6}(\epsilon e^{i\theta})^2\bigr)}\frac{i\epsilon e^{i\theta}}{(\epsilon e^{i\theta})^{n}}\mathrm{d}\theta\\
+&\approx -\frac{1}{2\pi i}\int_{0}^{2\pi}\bigl(\pi (\epsilon e^{i\theta})^{-n-1} + (\epsilon e^{i\theta})^{-n}\bigr)\bigl(1 + \frac{1}{6}(ze^{i\theta})^2\bigr)\mathrm{d}\theta \\
+\end{align*}
+\begin{align*}
+&n = -1 \quad C_{-1} = -\frac{1}{2\pi}\int_{0}^{2\pi}\pi \mathrm{d}\theta = -\pi \\
+&n = 0 \qquad C_{0} = -\frac{1}{2\pi}\int_{0}^{2\pi}1 \mathrm{d}\theta = -1\\
+&n = 1 \qquad C_{1} = -\frac{1}{2\pi}\int_{0}^{2\pi}\pi \frac{1}{6} \mathrm{d}\theta = -\frac{1}{6}\pi \\
+&n = 2 \qquad C_{2} = -\frac{1}{2\pi}\int_{0}^{2\pi}1 \times \frac{1}{6} \mathrm{d}\theta = -\frac{1}{6}
+\end{align*}
+以上より、
+$$
+\frac{z}{\sin{z}} = -\frac{\pi}{2-\pi} -1 - \frac{\pi}{6}(z-\pi) - \frac{1}{6} (z-\pi)^2 \cdots
+$$
+このLaurent展開より$z=1$は1位の極であると言える。\\
+また、$z =0$における留数は、$\mbox{\Large$\frac{1}{z-\pi}$}$の係数で、 $-\pi$。\\
+
+%[3]
+\section{}
+%1.
+\subsection{閉経路に沿った積分と留数}
+\subsubsection{}
+$e^x$のtaylor展開は、
+$$
+e^x = \sum_{n = 0}^{\infty} \frac{1}{n!}(z)^{n}
+$$
+よって、$f(z) = \mbox{\Large $e^{-\frac{1}{z}}$}$のLaurent展開は、
+\begin{align*}
+e^{-\frac{1}{z}} = \sum_{n = 0}^{\infty} \frac{1}{n!}(-\frac{1}{z})^{n}& = \sum_{n = 0}^{\infty} \frac{1}{n!}(-z)^{-n}\\
+\therefore \quad Res(f(z), z=0) &= -1
+\end{align*}
+\\
+
+\subsubsection{}
+$$
+\int_{|z|=1}\mathrm{d}z z^m = \int_{0}^{2\pi}\mathrm{d}\theta i e^{i\theta} e^{im\theta}\left\{\begin{array}{ll}
+    2\pi i \qquad(m = -1)\\
+    0 \qquad(m \neq -1)
+  \end{array}
+\right.
+$$
+より、(1)のLaurent展開を用いて項別積分を行うと、
+\begin{align*}
+\int_{|z| = 1}\mathrm{d}z e^{-\frac{1}{z}} &= \int_{|z| = 1}\mathrm{d}z e^{-\frac{1}{z}}\sum_{n = 0}^{\infty} \frac{1}{n!}(-z)^{-n}\\
+ &=\sum_{n = 0}^{\infty} \frac{1}{n!}\int_{|z| = 1}\mathrm{d}z (-z)^{-n}\\
+ &= -2\pi i 
+\end{align*}
+また、(1)より、 $Res(f(z), z=0) = -1$なので、$$2\pi i Res(f(z), z=0) = -2 \pi i$$ 
+これは確かに、$\mbox{\large $\int_{|z| = 1}\mathrm{d}z e^{-\frac{1}{z}}$}$と一致する。 \\
+
+\subsection{Cauchyの積分定理を用いた積分の計算}
+\subsubsection{}
+$z = R + it (0 \leq t \leq a)$と置換すると、
+\begin{align*}
+\biggl|\int_{C_2}\mathrm{d}zf(z)\biggr| &= \biggl|\int_{0}^{a}i\mathrm{d}t(R + it)^2\exp{\bigl(-(R+it)^2\bigr)}\biggr|\\
+&\leq \int_{0}^{a}\mathrm{d}t\Bigl|i\Bigr|\Bigl|t(R + it)^2)\Bigr|\Bigl|\exp{(-(R+it)^2)}\Bigr|\\
+&= \int_{0}^{a}\mathrm{d}t(R^2 + t^2)\exp{(-R^2 + t^2)}\\
+&< (R^2 + a^2)\exp{(-R^2 + a^2)}a\quad(\because (R^2 + t^2)\exp{(-R^2 + t^2)} はtに関して単調増加)\\
+&\to 0 \quad(R \to \infty)
+\end{align*}
+同様に、$z = -R + it (0 \leq t \leq a)$と置換すると、
+\begin{align*}
+\biggl|\int_{C_4}\mathrm{d}zf(z)\biggr| &= \biggl|\int_{a}^{0}i\mathrm{d}t(-R + it)^2\exp{\bigl(-(-R+it)^2\bigr)}\biggr|\\
+&\leq \int_{a}^{0}\mathrm{d}t\Bigl|i\Bigr|\Bigl|t(-R + it)^2)\Bigr|\Bigl|\exp{(-(-R+it)^2)}\Bigr|\\
+&= \int_{a}^{0}\mathrm{d}t(R^2 + t^2)\exp{(-R^2 + t^2)}\\
+&< (R^2 + a^2)\exp{(-R^2 + a^2)}a\quad(\because (R^2 + t^2)\exp{(-R^2 + t^2)} はtに関して単調増加減少)\\
+&\to 0 \quad(R \to \infty)
+\end{align*}
+以上より、
+$$
+\lim_{R \to \infty}\biggl(\int_{C_2}\mathrm{d}z + \int_{C_4}\mathrm{d}z\biggr)f(z) = 0
+$$
+が示された。\\
+
+\subsubsection{}
+f(z)は$C_1+C_2+C_3+C_4$で囲まれた領域に特異点を持たないので、
+$$
+\int_{C_1+C_2+C_3+C_4}f(z)\mathrm{d}z = 0
+$$
+また、(1)より、
+$$
+\int_{C_2+C_4}f(z)\mathrm{d}z = 0
+$$
+なので、
+$$
+\int_{C_3}f(z)\mathrm{d}z  = - \int_{C_1}f(z)\mathrm{d}z  
+$$
+よって、
+\begin{align*}
+\int_{\infty}^{-\infty}\mathrm{d}x(x+ia)^2 \exp{\bigl(-(x+ia)^2)\bigr)} &= \lim_{R \to \infty} \int_{R}^{-R}\mathrm{d}x(x+ia)^2 \exp{\bigl(-(x+ia)^2)\bigr)}\\
+&=\lim_{R \to \infty} -\int_{C_3}\mathrm{d}xf(x)\\
+&=\lim_{R \to \infty} \int_{C_1}\mathrm{d}xf(x)\\
+&= \lim_{R \to \infty} \int_{-R}^{R}\mathrm{d}x x^2 \exp{(-x^2)}\\
+&= \int_{-\infty}^{\infty}\mathrm{d}x x^2 \exp{(-x^2)}
+\end{align*}
+ここで、ガウス積分より、
+$$
+\int_{-\infty}^{\infty}\mathrm{d}x \exp{(-ax^2)} = \sqrt{\frac{\pi}{a}}
+$$
+両辺aで微分すると、
+$$
+\int_{-\infty}^{\infty}\mathrm{d}x -x^2\exp{(-ax^2)} = -\frac{\sqrt{\pi}}{2} a^{-\frac{3}{2}}
+$$
+$a = 1$を代入すると、
+$$
+\int_{-\infty}^{\infty}\mathrm{d}x -x^2\exp{(-x^2)} = -\frac{\sqrt{\pi}}{2}
+$$
+よって、
+$$
+\int_{\infty}^{-\infty}\mathrm{d}x(x+ia)^2 \exp{\bigl(-(x+ia)^2)\bigr)} = \int_{-\infty}^{\infty}\mathrm{d}x x^2 \exp{(-x^2)} = = -\frac{\sqrt{\pi}}{2}
+$$
+
+\subsubsection{}
+(1),(2)と同様の積分路で、$f(z) = e^{-z^2}$として考える。
+\begin{align*}
+\lim_{R \to \infty} \int_{C_1}\mathrm{d}xf(x)&= \lim_{R \to \infty} \int_{-R}^{R}\mathrm{d}x \exp{(-x^2)}\\
+&= \int_{-\infty}^{\infty}\mathrm{d}x \exp{(-x^2)}\\
+&= \sqrt{\pi}
+\end{align*}
+$z = R + it (0 \leq t \leq a)$と置換すると、
+\begin{align*}
+\biggl|\int_{C_2}\mathrm{d}zf(z)\biggr| &= \biggl|\int_{0}^{a}i\mathrm{d}t\exp{\bigl(-(R+it)^2\bigr)}\biggr|\\
+&\leq \int_{0}^{a}\mathrm{d}t\Bigl|i\Bigr|\Bigl|\exp{(-(R+it)^2)}\Bigr|\\
+&= \int_{0}^{a}\mathrm{d}t\exp{(-R^2 + t^2)}\\
+&< \exp{(-R^2 + a^2)}a\quad(\because \exp{(-R^2 + t^2)} はtに関して単調増加)\\
+&\to 0 \quad(R \to \infty)
+\end{align*}
+同様に、$z = -R + it (0 \leq t \leq a)$と置換すると、
+\begin{align*}
+\biggl|\int_{C_4}\mathrm{d}zf(z)\biggr| &= \biggl|\int_{a}^{0}i\mathrm{d}t\exp{\bigl(-(-R+it)^2\bigr)}\biggr|\\
+&\leq \int_{a}^{0}\mathrm{d}t\Bigl|i\Bigr|\Bigl|\exp{(-(-R+it)^2)}\Bigr|\\
+&= \int_{a}^{0}\mathrm{d}t\exp{(-R^2 + t^2)}\\
+&< \exp{(-R^2 + a^2)}a\quad(\because \exp{(-R^2 + t^2)} はtに関して単調増加減少)\\
+&\to 0 \quad(R \to \infty)
+\end{align*}
+また、f(z)は$C_1+C_2+C_3+C_4$で囲まれた領域に特異点を持たないので、
+\begin{align*}
+\int_{C_1+C_2+C_3+C_4}f(z)\mathrm{d}z = 0\\
+\therefore \quad \int_{C_3}f(z)\mathrm{d}z &= - \int_{C_1}f(z)\mathrm{d}z - \int_{C_2}f(z)\mathrm{d}z - \int_{C_4}f(z)\mathrm{d}z \\
+ &= -\sqrt{\pi}
+\end{align*}
+よって、
+\begin{align*}
+I_1 &= \Re \biggr(\int_{-\infty}^{\infty}\mathrm{d}x e^{x^2}e^{2iax}\biggl)\\
+&= \Re \biggr(\int_{-\infty}^{\infty}\mathrm{d}x e^{a^2}e^{(x + ia)^2}\biggl)\\
+&= e^{a^2}\Re \biggr(\int_{-\infty}^{\infty}\mathrm{d}x e^{(x + ia)^2}\biggl)\\
+&= e^{a^2}\Re \biggr(-\int_{C_3}\mathrm{d}z e^{z^2}\biggl)\\
+&= e^{a^2} \sqrt{\pi}
+\end{align*}
+
+\begin{align*}
+I_1 &= \int_{-\infty}^{\infty}\mathrm{d}x e^{-x^2}\cos{(2ax)}\\
+&= \Bigl[e^{-x^2}\sin{(2ax)}\Bigr]_{-\infty}^{\infty} - \int_{-\infty}^{\infty}\mathrm{d}x -2x e^{-x^2}\sin{(2ax)}\\
+&=\Bigl[e^{-x^2}\sin{(2ax)}\Bigr]_{-\infty}^{\infty} +2 I_2\\
+\therefore \quad I_2 &= \frac{I_1}{2} - \frac{1}{2}\Bigl[e^{-x^2}\sin{(2ax)}\Bigr]_{-\infty}^{\infty}
+\end{align*}
+ここで、
+\begin{align*}
+\Bigl[e^{-x^2}\sin{(2ax)}\Bigr]_{-\infty}^{\infty}&=\lim_{R\to \infty}\biggl|\Bigl[e^{-x^2}\sin{(2ax)}\Bigr]_{-R}^{R}\biggr| \\
+&= e^{-R^2}\sin{(2Rx)} - e^{-R^2}\sin{(-2Rx)}\\
+&= 0 \quad(as \, R \to \infty)
+\end{align*}
+より、
+\begin{align*}
+I_2 &= \frac{I_1}{2} - \frac{1}{2}\Bigl[e^{-x^2}\sin{(2ax)}\Bigr]_{-\infty}^{\infty}\\
+&= \frac{\sqrt{\pi}}{2}e^{a^2}
+\end{align*}
+
+\end{document}

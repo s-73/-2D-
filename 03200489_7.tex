@@ -1,0 +1,410 @@
+%\documentclass[a4paper]{jarticle} 
+\documentclass[dvipdfmx,a4paper]{jsarticle}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\topmargin = 0mm
+\oddsidemargin = 5mm
+\textwidth = 152mm
+\textheight = 240mm
+
+
+% サブセクションを 問1,問2 にする設定
+\renewcommand{\thesection}{[\arabic{section}]}
+
+% サブサブセクションを (1),(2)にする設定
+\renewcommand{\thesubsection}{(\arabic{subsection})}
+% (i),(ii)なら \arabic を \roman に変える。    (a),(b)なら \alph
+
+\renewcommand{\thesubsubsection}{(\roman{subsubsection})}
+
+% 大問2の3番目の計算式のラベルを (2.3) にする設定
+% 計算式の参照には \eqref{eq:hoge} を使う
+\makeatletter
+  \renewcommand{\theequation}{\arabic{subsection}.\arabic{equation}}
+  \@addtoreset{equation}{subsection}
+\makeatother
+
+% --------------------------------------------------------------------
+\begin{document}
+
+% タイトル
+\begin{center}
+\textbf{\huge{数学２D演習　第7回}}
+\end{center}
+
+%名前
+\begin{flushright}
+工学部電気電子工学科3年　03200489　末吉七海\\
+\end{flushright}
+
+% --------------------------------------------------------------------
+% [1]
+\section{復習}
+
+%(1)
+\subsection{}
+$z = x + iy$とおくと、
+\begin{align*}
+f(z) = e^z = e^x\cos{y} + ie^x\sin{y}
+\end{align*}
+$f(z) = u + iv$とすると、
+\begin{align*}
+\partial_x u &=  e^x\cos{y}\quad \partial_y v = e^x\cos{y}\\
+\partial_y u &= -e^x\sin{y}\quad \partial_x v = e^x\sin{y}\\
+\therefore \quad\partial_x u &= \partial_y v\quad \partial_y u = -\partial_x v
+\end{align*}
+このようにCR方程式が成り立つので、f(z)は微分可能。\\
+ すなわち、f(z)の微分は微分の方向によらないので、
+ $$\frac{\mathrm{d}e^z}{\mathrm{d}z} = \partial_x u + i\partial_x v = e^x\cos{y} + ie^x\cos{y} = e^z$$
+ 以上より題意は示された。\\
+ 
+ %(2)
+\subsection{}
+$z = x + iy$とおくと、
+\begin{align*}
+f(z) = \log{z} = \frac{1}{2}\log{(x^2 + y^2)} + i\arctan{\frac{y}{x}}
+\end{align*}
+$f(z) = u + iv$とすると、
+$$
+\partial_x u =  \frac{x}{x^2 + y^2}\quad \partial_y u =  \frac{y}{x^2 + y^2}
+$$
+$\tan{v} = \frac{y}{x}$より、
+\begin{align*}
+\frac{1}{\cos^2{v}}\partial_x v &= -\frac{y}{x^2}\quad \frac{1}{\cos^2{v}}\partial_y v = \frac{1}{x}\\
+\therefore \quad(1 + \tan^2{v})\partial_x v &= -\frac{y}{x^2}\quad (1 + \tan^2{v})\partial_x v = \frac{1}{x}\\
+\therefore \quad(\frac{x^2 + y^2}{x^2})\partial_x v &= -\frac{y}{x^2}\quad (\frac{x^2 + y^2}{x^2})\partial_x v = \frac{1}{x}\\
+\therefore \quad\partial_x v &= -\frac{y}{x^2 + y^2}\quad\partial_y v = \frac{x}{x^2 + y^2}
+\end{align*}
+以上より、
+$$
+\partial_x u = \partial_y v\quad \partial_y u = -\partial_x v
+$$
+このようにCR方程式が成り立つので、f(z)は微分可能。\\
+ すなわち、f(z)の微分は微分の方向によらないので、
+ $$\frac{\mathrm{d}e^z}{\mathrm{d}z} = \partial_x u + i\partial_x v = \frac{x}{x^2 + y^2} - i\frac{y}{x^2 + y^2} = \frac{x-iy}{x^2 + y^2} = \frac{1}{x + iy}$$
+ 以上より題意は示された。\\
+ 
+ %(3)
+ \subsection{}
+ $\mbox{\Large$\frac{e^z}{z^2}$}$をローラン展開すると、
+ $$
+ \frac{e^z}{z^2} = \frac{1}{z^2}\sum_{n = 0}^{\infty} \frac{z^n}{n!} = \sum_{n = 0}^{\infty} \frac{z^{n-2}}{n!}
+ $$
+ \\
+ 
+  %(4)
+ \subsection{}
+ $\mbox{\Large$\frac{\sin{z}}{z^3}$}$をローラン展開すると、
+ $$
+ \frac{\sin{z}}{z^3} = \frac{1}{z^3}\sum_{n = 0}^{\infty} \frac{(-1)^{n}z^{2n + 1}}{(2n + 1)!} = \sum_{n = 0}^{\infty} \frac{(-1)^{n}z^{2n-2}}{(2n + 1)!}
+ $$
+ \\
+ 
+ %(5)
+ \subsection{}
+ $\mbox{\large$\frac{1}{z(z-1)^2}$}$をローラン展開すると、
+ \begin{align*}
+ \frac{1}{z(z-1)^2} &= \frac{1}{z} - \frac{1}{z-1} + \frac{1}{(z-1)^2} \\
+ &= \frac{1}{z} + \sum_{n = 0}^{\infty}z^n + \sum_{n = 0}^{\infty}(n+1)z^n \\
+ &= \frac{1}{z} + \sum_{n = 0}^{\infty}(n+2)z^n
+\end{align*}
+\\\\
+
+%[2]
+\section{$\mbox{\Large$\int_{-\infty}^{\infty}$}R(x)\exp{(ix)}\mathrm{d}x$の積分}
+%(1)
+\subsection{}
+ $\mbox{\Large$\frac{e^{iz}}{z^2 + a^2}$}$の極は、$z = \pm ia$であり、それぞれにおける留数は、
+ \begin{align*}
+ &Res\biggl(\frac{e^{iz}}{z^2 + a^2}, ia\biggr) = \frac{e^{-a}}{2ai}\\
+ &Res\biggl(\frac{e^{iz}}{z^2 + a^2}, -ia\biggr) = \frac{e^{a}}{-ai}\\
+ \end{align*}
+ \\
+ 
+ %(2)
+\subsection{}
+ 積分経路内にある極は、$z = ia$であるから、
+ \begin{align*}
+ \oint_{C}\frac{e^{iz}}{z^2 + a^2} = 2\pi iRes\biggl(\frac{e^{iz}}{z^2 + a^2}, ia\biggr) = 2\pi i\frac{e^{-a}}{2ai} = \frac{\pi e^{-a}}{a}
+ \end{align*}
+ \\
+ 
+ %(3)
+ \subsection{}
+ $z = Re^{i\theta}(0 < \theta <pi)$とおくと、$\mathrm{d}z = iRe^{i\theta}\mathrm{d}\theta$
+ \begin{align*}
+ \lim_{R \to {\infty}} \biggl|\int_{C_R}\mathrm{d}z\frac{e^{iz}}{z^2 + a^2}\biggr| &= \lim_{R \to {\infty}} \biggl|\int_{0}^{\pi}\mathrm{d}\theta\, iRe^{i\theta}\frac{e^{iR(\cos{\theta} + i\sin{\theta})}}{R^2e^{2i\theta} + a^2}\biggr|\\
+ &= \lim_{R \to {\infty}} \int_{0}^{\pi}\mathrm{d}\theta\, \bigl|iRe^{i\theta}\bigr|\biggl|\frac{e^{iR\cos{\theta} - R\sin{\theta})}}{R^2e^{2i\theta} + a^2}\biggr|\\
+ &= \lim_{R \to {\infty}} \int_{0}^{\pi}\mathrm{d}\theta\, R\biggl|\frac{e^{- R\sin{\theta}}}{R^2e^{2i\theta} + a^2}\biggr|\\
+ &< \lim_{R \to {\infty}} \int_{0}^{\pi}\mathrm{d}\theta\, R\frac{e^{\sin{\theta}}e^{- R}}{R^2- a^2}\quad(\because R < a)\\
+ &\leq\lim_{R \to {\infty}} \int_{0}^{\pi}\mathrm{d}\theta\, R\frac{e^{- R}}{R^2- a^2}\quad(\because \sin{\theta}\leq1)\\
+ &= \frac{R}{R^2 - a^2}\pi\\
+  &= 0
+ \end{align*}
+ \\
+ 
+ %(4)
+ \subsection{}
+ \begin{align*}
+ \int_{0}^{\infty}\mathrm{d}x\frac{cos{x}}{x^2 + a} &= \frac{1}{2}\int_{-\infty}^{\infty}\mathrm{d}x\frac{cos{x}}{x^2 + a^2}\\
+ &= \frac{1}{2}\int_{-\infty}^{\infty}\mathrm{d}z\frac{e^{iz}}{z^2 + a^2}\\
+ &= \frac{1}{2}\lim_{R \to \infty}\int_{-R}^{R}\mathrm{d}z\frac{e^{iz}}{z^2 + a^2}\\
+ &= \frac{1}{2}\lim_{R \to \infty}\int_{C_x}\mathrm{d}z\frac{e^{iz}}{z^2 + a^2}\\
+ &= \frac{1}{2}\lim_{R \to \infty}\biggl(\int_{C}\mathrm{d}z\frac{e^{iz}}{z^2 + a^2} - \int_{C_R}\mathrm{d}z\frac{e^{iz}}{z^2 + a^2}\biggr)\\
+ &= \frac{\pi e^{-a}}{2a}
+ \end{align*}
+ 
+ %[3]
+ \section{Heavisideステップ関数の積分表示}
+ $$
+ S(t) = \frac{1}{2\pi i}\lim_{\epsilon \to +0}\int_{-\infty}^{\infty}\frac{e^{itx}}{x - i\epsilon}\mathrm{d}x
+ $$
+ \subsubsection{$t >0$}
+ \begin{align*}
+ S(t) &= \frac{1}{2\pi i}\lim_{\epsilon \to +0}\lim_{R\to \infty}\int_{C_x}\frac{e^{itz}}{z - i\epsilon}\mathrm{d}z\\
+ &= \frac{1}{2\pi i}\lim_{\epsilon \to +0}\lim_{R\to \infty}\oint_{C}\frac{e^{itz}}{z - i\epsilon}\mathrm{d}z\quad(\because ジョルダンの補題)\\
+ &=  \lim_{\epsilon \to +0}Res\biggl(\frac{e^{itz}}{z - i\epsilon}, i\epsilon\biggr)\\
+ &=  \lim_{\epsilon \to +0}e^{-\epsilon t} \\
+ &= 1
+ \end{align*}
+ 
+ \subsubsection{$t = 0$}
+ $z = Re^{i\theta}$とおくと、
+ \begin{align*}
+ S(0) &= \frac{1}{2\pi i}\lim_{\epsilon \to +0}\lim_{R\to \infty}\int_{C_x}\frac{1}{z - i\epsilon}\mathrm{d}z\\
+ &= \frac{1}{2\pi i}\lim_{\epsilon \to +0}\lim_{R\to \infty}\oint_{C}\frac{1}{z - i\epsilon}\mathrm{d}z - \frac{1}{2\pi i}\lim_{\epsilon \to +0}\lim_{R\to \infty}\int_{C_R}\frac{1}{z - i\epsilon}\mathrm{d}z\\
+ &=  \lim_{\epsilon \to +0}Res\biggl(\frac{1}{z - i\epsilon}, i\epsilon\biggr) - \frac{1}{2\pi i}\lim_{\epsilon \to +0}\lim_{R\to 0}\int_{0}^{\pi}\frac{1}{Re^{i\theta} - i\epsilon}iRe^{i\theta}\mathrm{d}\theta\\
+ &= 1 - \frac{1}{2\pi }\lim_{\epsilon \to +0}\lim_{R\to 0}\int_{0}^{\pi}\frac{1}{1 - i\frac{\epsilon}{Re^{i\theta}}}\mathrm{d}\theta\\
+ &= 1 - \frac{1}{2\pi }\int_{0}^{\pi}\lim_{\epsilon \to +0}\lim_{R\to 0}\frac{1}{1 - i\frac{\epsilon}{Re^{i\theta}}}\mathrm{d}\theta\quad(\because\frac{1}{1 - i\frac{\epsilon}{Re^{i\theta}}}は1に一様収束する)\\
+ &= 1 - \frac{1}{2\pi }\int_{0}^{\pi}\mathrm{d}\theta\quad(\because\frac{1}{1 - i\frac{\epsilon}{Re^{i\theta}}}は1に一様収束する)\\
+ &= 1-\frac{1}{2}\\
+ &= \frac{1}{2}
+ \end{align*}
+ 
+ \subsubsection{$t < 0$}
+ $z \to -z$と変数変換すると、
+ \begin{align*}
+ S(t) &= \frac{1}{2\pi i}\lim_{\epsilon \to +0}\lim_{R\to \infty}\int_{C_x}\frac{e^{-itz}}{-z - i\epsilon}\mathrm{d}z\\
+ &= \frac{1}{2\pi i}\lim_{\epsilon \to +0}\lim_{R\to \infty}\int_{C_x}\frac{e^{-itz}}{-z - i\epsilon}\mathrm{d}z\\
+ &= \frac{1}{2\pi i}\lim_{\epsilon \to +0}\lim_{R\to \infty}\oint_{C}\frac{e^{-itz}}{z - i\epsilon}\mathrm{d}z\quad(\because ジョルダンの補題)\\
+ &=  0
+ \end{align*}
+ 
+ %[4]
+ \section{多価関数の積分}
+ %(1)
+ \subsection{}
+ \begin{align*}
+ \biggl|\int_{C_R}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z\biggr| &< \int_{0}^{\pi}\biggl|\frac{R^{\frac{1}{2}}e^{\frac{i\theta}{2}}}{R^2e^{2i\theta} + 1}iRe^{i\theta}\biggr|\mathrm{d}\theta \quad(z = Re^{i\theta})\\
+ &= \int_{0}^{\pi}\biggl|\frac{R^{\frac{1}{2}}e^{\frac{i\theta}{2}}}{R^3e^{2i\theta} + 1}\biggr|\bigl|e^{\frac{i\theta}{2}}\bigr|\bigl|iRe^{i\theta}\bigr|\mathrm{d}\theta\\
+ &= \int_{0}^{\pi}\biggl|\frac{R^{\frac{3}{2}}e^{\frac{i\theta}{2}}}{R^2e^{2i\theta} + 1}\biggr|\mathrm{d}\theta\\
+ &< \int_{0}^{\pi}\frac{R^{\frac{3}{2}}}{R^2 - 1}\mathrm{d}\theta\\
+ &= 2\pi\frac{R^{\frac{3}{2}}}{R^2 - 1}\\
+ &\to 0\quad(as\, R \to \infty)\\
+ \biggl|\int_{C_{\epsilon}}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z\biggr| &< \int_{0}^{\pi}\biggl|\frac{\epsilon^{\frac{1}{2}}e^{\frac{i\theta}{2}}}{\epsilon^2e^{2i\theta} + 1}i\epsilon e^{i\theta}\biggr|\mathrm{d}\theta \quad(z = \epsilon e^{i\theta})\\
+ &= \int_{0}^{\pi}\biggl|\frac{\epsilon^{\frac{3}{2}}e^{\frac{i\theta}{2}}}{\epsilon^2e^{2i\theta} + 1}\biggr|\mathrm{d}\theta\\
+ &< \int_{0}^{\pi}\frac{\epsilon^{\frac{3}{2}}}{1 - \epsilon^2}\mathrm{d}\theta\\
+ &= 2\pi\frac{\epsilon^{\frac{3}{2}}}{1 - \epsilon^2}\\
+ &\to 0\quad(as \,\epsilon \to 0)\\
+ \oint_C\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z &= 2\pi iRes\biggl(\frac{z^{\frac{1}{2}}}{z^2 + 1}, e^{i\frac{\pi}{2}}\biggr) + 2\pi iRes\biggl(\frac{z^{\frac{1}{2}}}{z^2 + 1}, e^{\frac{3\pi}{2}}\biggr)\\
+ &= 2\pi i\frac{e^{i\frac{\pi}{4}}}{i + i} + 2\pi i\frac{e^{i\frac{3\pi}{4}}}{-i - i}\\
+ &= 2\pi i\frac{\frac{\sqrt{2}}{2} + i\frac{\sqrt{2}}{2}}{2i} + 2\pi i\frac{-\frac{\sqrt{2}}{2} + i\frac{\sqrt{2}}{2}}{-2i}\\
+ &= \sqrt{2}\pi\\
+ \int_{0}^{\infty} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{0}^{\infty} \frac{\bigl(xe^0 + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^0 + i\delta\bigr)^2 + 1} \mathrm{d}x \quad(z = xe^0 + i\delta)\\
+ &= \int_{0}^{\infty} \frac{x^{\frac{1}{2}}}{x^2 + 1} \mathrm{d}x\quad(\because \frac{\bigl(xe^0 + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^0 + i\delta\bigr)^2 + 1}は一様収束)\\
+ &= J\\
+  \int_{\infty}^{0} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{\infty}^{0} \frac{\bigl(xe^{i2\pi} + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^{i2\pi} + i\delta\bigr)^2 + 1} \mathrm{d}x \quad(z = xe^{i2\pi} + i\delta)\\
+ &= \int_{\infty}^{0} \frac{x^{\frac{1}{2}}e^{i\pi}}{x^2e^{i4\pi} + 1} \mathrm{d}x\quad(\because\frac{\bigl(xe^{i2\pi} + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^{i2\pi} + i\delta\bigr)^2 + 1}は一様収束)\\
+ &= \int_{\infty}^{0} -\frac{x^{\frac{1}{2}}}{x^2 + 1} \mathrm{d}x\\
+ &= J
+ \end{align*}
+ 以上より、
+ \begin{align*}
+ J &= \frac{1}{2}\int_{0}^{\infty} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z + \frac{1}{2}\int_{\infty}^{0} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z \\
+ &=\frac{1}{2}\oint_C\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z - \frac{1}{2}\int_{C_R}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z - \frac{1}{2}\int_{C_{\epsilon}}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z\\
+ &= \frac{\sqrt{2}}{2}\pi
+ \end{align*}
+ \\
+ 
+ \subsection{}
+ zの偏角が$2\pi$から$4\pi$として同様の議論を行う。\\
+ (1)と同様に、
+ \begin{align*}
+ \int_{C_R}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z = 0\\
+\int_{C_{\epsilon}}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z = 0
+ \end{align*}
+ また、
+ \begin{align*}
+ \oint_C\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z &= 2\pi iRes\biggl(\frac{z^{\frac{1}{2}}}{z^2 + 1}, e^{i\frac{5\pi}{2}}\biggr) + 2\pi iRes\biggl(\frac{z^{\frac{1}{2}}}{z^2 + 1}, e^{\frac{7\pi}{2}}\biggr)\\
+ &= 2\pi i\frac{e^{i\frac{5\pi}{4}}}{i + i} + 2\pi i\frac{e^{i\frac{7\pi}{4}}}{-i - i}\\
+ &= 2\pi i\frac{\frac{\sqrt{2}}{2} - i\frac{\sqrt{2}}{2}}{2i} + 2\pi i\frac{-\frac{\sqrt{2}}{2} - i\frac{\sqrt{2}}{2}}{-2i}\\
+ &= -\sqrt{2}\pi\\
+ \end{align*}
+ さらに、
+ \begin{align*}
+  \int_{0}^{\infty} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{0}^{\infty}\frac{\bigl(xe^{i2\pi} + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^{i2\pi} + i\delta\bigr)^2 + 1} \mathrm{d}x \quad(z = xe^{i2\pi} + i\delta)\\
+ &= \int_{0}^{\infty} \frac{x^{\frac{1}{2}}e^{i\pi}}{x^2e^{i4\pi} + 1} \mathrm{d}x\quad(\because\frac{\bigl(xe^{i2\pi} + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^{i2\pi} + i\delta\bigr)^2 + 1}は一様収束)\\
+ &= \int_{0}^{\infty} -\frac{x^{\frac{1}{2}}}{x^2 + 1} \mathrm{d}x\\
+  &= -J\\
+ \int_{\infty}^{0} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{\infty}^{0} \frac{\bigl(xe^{i4\pi} + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^{i4\pi} + i\delta\bigr)^2 + 1} \mathrm{d}x \quad(z = xe^{i4\pi} + i\delta)\\
+ &= \int_{\infty}^{0} \frac{x^{\frac{1}{2}}e^{2i\pi}}{x^2e^{i8\pi} + 1} \mathrm{d}x\quad(\because\frac{\bigl(xe^{i4\pi} + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^{i4\pi} + i\delta\bigr)^2 + 1}は一様収束)\\
+ &= \int_{\infty}^{0} \frac{x^{\frac{1}{2}}}{x^2 + 1} \mathrm{d}x\\
+  &= -J
+ \end{align*}
+ 以上より、
+ \begin{align*}
+ J &= -\frac{1}{2}\int_{0}^{\infty} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z - \frac{1}{2}\int_{\infty}^{0} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z \\
+ &=-\frac{1}{2}\oint_C\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z + \frac{1}{2}\int_{C_R}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z + \frac{1}{2}\int_{C_{\epsilon}}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z\\
+ &= \frac{\sqrt{2}}{2}\pi
+ \end{align*}
+ これは確かに(1)の答えと一致している。\\
+ 
+ %(3)
+ \subsection{}
+ zの偏角が$-\pi$から$\pi$として同様の議論を行う。\\
+ (1)と同様に、
+ \begin{align*}
+ \int_{C_R}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z = 0\\
+\int_{C_{\epsilon}}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z = 0
+ \end{align*}
+ また、
+ \begin{align*}
+ \oint_C\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z &= 2\pi iRes\biggl(\frac{z^{\frac{1}{2}}}{z^2 + 1}, e^{i\frac{\pi}{2}}\biggr) + 2\pi iRes\biggl(\frac{z^{\frac{1}{2}}}{z^2 + 1}, e^{-i\frac{\pi}{2}}\biggr)\\
+ &= 2\pi i\frac{e^{i\frac{\pi}{4}}}{i + i} + 2\pi i\frac{e^{-i\frac{\pi}{4}}}{-i - i}\\
+ &= 2\pi i\frac{\frac{\sqrt{2}}{2} + i\frac{\sqrt{2}}{2}}{2i} + 2\pi i\frac{\frac{\sqrt{2}}{2} - i\frac{\sqrt{2}}{2}}{-2i}\\
+ &= i\sqrt{2}\pi
+ \end{align*}
+ さらに、
+ \begin{align*}
+  \int_{0}^{\infty} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{0}^{\infty}\frac{\bigl(xe^{i\pi} + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^{i\pi} + i\delta\bigr)^2 + 1} \mathrm{d}x \quad(z = xe^{i\pi} + i\delta)\\
+ &= \int_{0}^{\infty} \frac{x^{\frac{1}{2}}e^{\frac{i\pi}{2}}}{x^2e^{i2\pi} + 1} \mathrm{d}x\quad(\because\frac{\bigl(xe^{i\pi} + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^{i\pi} + i\delta\bigr)^2 + 1}は一様収束)\\
+ &= \int_{0}^{\infty} i\frac{x^{\frac{1}{2}}}{x^2 + 1} \mathrm{d}x\\
+  &= iJ\\
+ \int_{\infty}^{0} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{\infty}^{0} \frac{\bigl(xe^{-i\pi} + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^{-i\pi} + i\delta\bigr)^2 + 1} \mathrm{d}x \quad(z = xe^{-i\pi} + i\delta)\\
+ &= \int_{\infty}^{0} \frac{x^{\frac{1}{2}}e^{-\frac{i\pi}{2}}}{x^2e^{i2\pi} + 1} \mathrm{d}x\quad(\because\frac{\bigl(xe^{-i\pi} + i\delta\bigr)^{\frac{1}{2}}}{\bigl(xe^{-i\pi} + i\delta\bigr)^2 + 1}は一様収束)\\
+ &= \int_{\infty}^{0} -i\frac{x^{\frac{1}{2}}}{x^2 + 1} \mathrm{d}x\\
+  &= iJ
+ \end{align*}
+ 以上より、
+ \begin{align*}
+ J &= -i\frac{1}{2}\int_{0}^{\infty} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z -i \frac{1}{2}\int_{\infty}^{0} \frac{z^{\frac{1}{2}}}{z^2 + 1} \mathrm{d}z \\
+ &=-i\frac{1}{2}\oint_C\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z +i \frac{1}{2}\int_{C_R}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z +i \frac{1}{2}\int_{C_{\epsilon}}\frac{z^{\frac{1}{2}}}{z^2 + 1}\mathrm{d}z\\
+ &= \frac{\sqrt{2}}{2}\pi
+ \end{align*}
+ これは確かに(1)(2)の答えと一致している。\\\\
+ 
+ %[5]
+ \section{$\mbox{\Large$\int_0^{\infty}$}R(x)x^{\alpha}\mathrm{d}x型の積分$}
+  \subsection{$\mbox{\Large $\int_0^{\pi}\frac{x^\alpha}{x^2 + x + 1}$}\mathrm{d}x$}
+  $J = \mbox{\Large $\int_0^{\pi}\frac{x^\alpha}{x^2 + x + 1}$}\mathrm{d}x$とおく。
+ \begin{align*}
+ \biggl|\int_{C_R}\frac{z^{\alpha}}{z^2 + z + 1}\mathrm{d}z\biggr| &< \int_{0}^{\pi}\biggl|\frac{R^{\alpha}e^{i\alpha\theta}}{R^2e^{2i\theta} + Re^{i\theta} + 1}iRe^{i\theta}\biggr|\mathrm{d}\theta \quad(z = Re^{i\theta})\\
+ &< \int_{0}^{\pi}\frac{R^{\alpha + 1}}{|R^2e^{2i\theta}| - |Re^{i\theta} + 1|}\mathrm{d}\theta\\
+ &< \int_{0}^{\pi}\frac{R^{\alpha + 1}}{R^2 - R - 1}\mathrm{d}\theta\\
+ &= 2\pi\frac{R^{\alpha + 1}}{R^2 - R - 1}\\
+ &\to 0\quad(as\, R \to \infty)\\
+ \biggl|\int_{C_\epsilon}\frac{z^{\alpha}}{z^2 + z + 1}\mathrm{d}z\biggr| &< \int_{0}^{\pi}\biggl|\frac{\epsilon^{\alpha}e^{i\alpha\theta}}{\epsilon^2e^{2i\theta} + \epsilon e^{i\theta} + 1}i\epsilon e^{i\theta}\biggr|\mathrm{d}\theta \quad(z = \epsilon e^{i\theta})\\
+ &< \int_{0}^{\pi}\frac{\epsilon^{\alpha + 1}}{1 - |\epsilon^2e^{2i\theta} + \epsilon e^{i\theta}|}\mathrm{d}\theta\\
+ &< \int_{0}^{\pi}\frac{\epsilon^{\alpha + 1}}{1 - \epsilon^2 - \epsilon}\mathrm{d}\theta\\
+ &= 2\pi\frac{\epsilon^{\alpha + 1}}{1 - \epsilon^2 - \epsilon}\\
+ &\to 0\quad(as\, \epsilon \to \infty)\\
+ \oint_C\frac{z^{\alpha}}{z^2 + z + 1}\mathrm{d}z &= 2\pi iRes\biggl(\frac{z^{\alpha}}{z^2 + z + 1}, e^{i\frac{2\pi}{3}}\biggr) + 2\pi iRes\biggl(\frac{z^{\alpha}}{z^2 + z + 1}, e^{i\frac{4\pi}{3}}\biggr)\\
+ &= 2\pi i\frac{e^{i\frac{2\alpha\pi}{3}}}{i \sqrt{3}} + 2\pi i\frac{e^{i\frac{4\alpha\pi}{3}}}{-i \sqrt{3}}\\
+ &= \frac{2\pi}{\sqrt{3}} (e^{i\frac{2\alpha\pi}{3}} - e^{i\frac{4\alpha\pi}{3}})\\
+ \int_{0}^{\infty} \frac{z^{\alpha}}{z^2 + z + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{0}^{\infty} \frac{\bigl(xe^0 + i\delta\bigr)^{\alpha}}{\bigl(xe^0 + i\delta\bigr)^2 + xe^0 + i\delta +  1} \mathrm{d}x \quad(z = xe^0 + i\delta)\\
+ &= \int_{0}^{\infty} \frac{x^{\alpha}}{x^2 + x + 1} \mathrm{d}x\quad(\because \frac{\bigl(xe^0 + i\delta\bigr)^{\alpha}}{\bigl(xe^0 + i\delta\bigr)^2 + xe^0 + i\delta +  1}は一様収束)\\
+ &= J
+ \end{align*}
+ \begin{align*}
+ \int_{\infty}^{0} \frac{z^{\alpha}}{z^2 + z + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{\infty}^{0} \frac{\bigl(xe^{i2\pi} + i\delta\bigr)^{\alpha}}{\bigl(xe^{i2\pi} + i\delta\bigr)^2 + xe^{i2\pi} + i\delta +  1} \mathrm{d}x \quad(z = xe^{i2\pi} + i\delta)\\
+ &= \int_{\infty}^{0} \frac{\bigl(xe^{i2\pi}\bigr)^{\alpha}}{\bigl(xe^{i2\pi} \bigr)^2 + xe^{i2\pi} +  1}  \mathrm{d}x\quad(\because\frac{\bigl(xe^{i2\pi} + i\delta\bigr)^{\alpha}}{\bigl(xe^{i2\pi} + i\delta\bigr)^2 + xe^{i2\pi} + i\delta +  1} は一様収束)\\
+ &= \int_{\infty}^{0} e^{i\alpha 2\pi}\frac{x^{\alpha}}{x^2 + x + 1} \mathrm{d}x\\
+ &= -e^{i\alpha 2\pi} J
+ \end{align*}
+ 以上より、
+ \begin{align*}
+ J &= \frac{1}{1 - e^{i\alpha \pi}}\biggl(\int_{0}^{\infty} \frac{z^{\alpha}}{z^2 + z + 1} \mathrm{d}z + \int_{\infty}^{0} \frac{z^{\alpha}}{z^2 + z + 1} \mathrm{d}z \mathrm{d}z \biggr)\\
+ &=\frac{1}{1 - e^{i\alpha \pi}}\biggl(\oint_C\frac{z^{\alpha}}{z^2 + z + 1}\mathrm{d}z + \int_{C_\epsilon}\frac{z^{\alpha}}{z^2 + z + 1}\mathrm{d}z +  \int_{C_R}\frac{z^{\alpha}}{z^2 + z + 1}\mathrm{d}z\biggr)\\
+ &= \frac{2 \pi}{\sqrt{3}}\frac{e^{i\frac{2\alpha\pi}{3}} - e^{i\frac{4\alpha\pi}{3}}}{1 - e^{i\alpha 2\pi}}\\
+&= \frac{2 \pi}{\sqrt{3}}\frac{e^{-i\frac{\alpha\pi}{3}} - e^{i\frac{\alpha\pi}{3}}}{e^{-i\alpha \pi} - e^{i\alpha \pi}}\\
+&= \frac{2 \pi}{\sqrt{3}}\frac{\sin{\frac{\pi}{3}\alpha}}{\sin{\alpha\pi}}
+ \end{align*}
+ \\
+ 
+ %(2)
+ \subsection{$\mbox{\Large $\int_0^{\pi}\frac{\ln{x}}{x^2 + 1}$}\mathrm{d}x$}
+ $J = \mbox{\Large $\int_0^{\pi}\frac{\ln{x}}{x^2 + 1}$}\mathrm{d}x$とおく。
+ \begin{align*}
+ \biggl|\int_{C_R}\mathrm{d}z\frac{(\ln{z})^2}{z^2 + 1}\biggr| &= \biggl|\int_0^{2\pi}\frac{(\ln{Re^{i\theta}})^2}{R^2e^{2i\theta} + 1}iRe^{i\theta}\mathrm{d}\theta\biggr|\quad(z = Re^{i\theta})\\
+ &< \int_0^{2\pi}\frac{(\ln{R} + i\theta)^2}{R^2 - 1}R\mathrm{d}\theta\\
+ &= \int_0^{2\pi}\frac{R\bigl((\ln{R})^2 + \theta^2\bigr)}{R^2 - 1}\mathrm{d}\theta\\
+ &=2\pi\frac{R\bigl((\ln{R})^2 + \theta^2\bigr)}{R^2 - 1}\\
+ &\to 0 \quad(as\, R \to \infty)\\
+ \biggl|\int_{C_{\epsilon}}\mathrm{d}z\frac{(\ln{z})^2}{z^2 + 1}\biggr| &= \biggl|\int_0^{2\pi}\frac{(\ln{\epsilon e^{i\theta}})^2}{\epsilon^2e^{2i\theta} + 1}i\epsilon e^{i\theta}\mathrm{d}\theta\biggr|\quad(z = \epsilon e^{i\theta})\\
+ &< \int_0^{2\pi}\frac{(\ln{\epsilon} + i\theta)^2}{1 - \epsilon^2}\epsilon\mathrm{d}\theta\\
+ &= \int_0^{2\pi}\frac{\epsilon\bigl((\ln{\epsilon})^2 + \theta^2\bigr)}{1 - \epsilon^2}\mathrm{d}\theta\\
+ &=2\pi\frac{\epsilon\bigl((\ln{\epsilon})^2 + \theta^2\bigr)}{1 - \epsilon^2}\\
+ &\to 0 \quad(as\, \epsilon \to \infty)
+ \end{align*}
+ \begin{align*}
+ \oint_c\mathrm{d}z\frac{(\ln{z})^2}{z^2 + 1} &= 2\pi iRes\biggl(\frac{(\ln{z})^2}{z^2 + 1}, e^{i\frac{\pi}{2}}\biggr) + 2\pi iRes\biggl(\frac{(\ln{z})^2}{z^2 + 1}, e^{i\frac{3\pi}{2}}\biggr)\\
+ &= 2\pi i \frac{(\ln{(e^{i\frac{\pi}{2}})})^2}{2i} + 2\pi i \frac{(\ln{(e^{i\frac{3\pi}{2}})})^2}{ -2i}\\
+ &= 2\pi i \frac{(i\frac{\pi}{2})^2}{2i} + 2\pi i \frac{(i\frac{3\pi}{2})^2}{ -2i}\\
+ &= 2\pi^3\\
+  \int_{0}^{\infty} \frac{(\ln{z})^2}{z^2 + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{0}^{\infty} \frac{(\ln{(xe^0 + i\delta)})^2}{(xe^0 + i\delta)^2 + 1} \mathrm{d}x \quad(z = xe^0 + i\delta)\\
+ &= \int_{0}^{\infty}  \frac{(\ln{x})^2}{x^2 + 1}\quad(\because \frac{(\ln{(xe^0 + i\delta)})^2}{(xe^0 + i\delta)^2 + 1} は一様収束)\\
+ \int_{\infty}^{0} \frac{(\ln{z})^2}{z^2 + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{\infty}^{0} \frac{(\ln{(xe^{i2\pi} + i\delta)})^2}{(xe^{i2\pi} + i\delta)^2 + 1}\mathrm{d}x \quad(z = xe^{i2\pi} + i\delta)\\
+ &= \int_{\infty}^{0} \frac{(\ln{(xe^{i2\pi}}))^2}{x^2 + 1}\ \mathrm{d}x\quad(\because\frac{(\ln{(xe^{i2\pi} + i\delta)})^2}{(xe^{i2\pi} + i\delta)^2 + 1}は一様収束)\\
+ &= \int_{\infty}^{0} \frac{(\ln{x} + i2\pi)^2}{x^2 + 1}\ \mathrm{d}x\\
+ &= \int_{\infty}^{0} \frac{(\ln{x})^2  + i4\pi\ln{x} -4\pi^2}{x^2 + 1}\mathrm{d}x\\
+ &= -i4\pi J - \int_{0}^{\infty} \frac{(\ln{x})^2}{x^2 + 1} + 4 \pi^2 \int_0^{\frac{\pi}{2}}\frac{1}{1 + \tan^2{\theta}}\cos^2{\theta}\mathrm{d}\theta\quad(x = \tan{\theta})\\
+ &= -i4\pi J - \int_{0}^{\infty} \frac{(\ln{x})^2}{x^2 + 1} + 4 \pi^2 \int_0^{\frac{\pi}{2}}\mathrm{d}\theta\quad(x = \tan{\theta})\\
+ &=  -i4\pi J - \int_{0}^{\infty} \frac{(\ln{x})^2}{x^2 + 1} + 2\pi^3
+ \end{align*}
+ 以上より、
+ \begin{align*}
+ J &= \frac{1}{-i4}\biggl(\int_{0}^{\infty} \frac{(\ln{z})^2}{z^2 + 1} \mathrm{d}z + \int_{\infty}^{0} \frac{(\ln{z})^2}{z^2 + 1} \mathrm{d}z - 2\pi^3\biggr)\\
+ &=\frac{i}{4}\biggl(\oint_C\frac{(\ln{z})^2}{z^2 + 1}\mathrm{d}z + \int_{C_\epsilon}\frac{(\ln{z})^2}{z^2 + 1}\mathrm{d}z +  \int_{C_R}\frac{(\ln{z})^2}{z^2 + 1}\mathrm{d}z - 2\pi^3\biggr)\\
+&=\frac{i}{4}( 2\pi^3 - 2\pi^3)\\
+&= 0
+ \end{align*}
+\\
+
+%(3)
+\subsection{$\mbox{\Large $\int_0^{\pi}\frac{(\ln{x})^2}{x^2 + 1}$}\mathrm{d}x$}
+$J = \mbox{\Large $\int_0^{\pi}\frac{(\ln{x})^2}{x^2 + 1}$}\mathrm{d}x$とおく。
+ \begin{align*}
+ \biggl|\int_{C_R}\mathrm{d}z\frac{(\ln{z})^3}{z^2 + 1}\biggr| &= \biggl|\int_0^{2\pi}\frac{(\ln{Re^{i\theta}})^3}{R^2e^{2i\theta} + 1}iRe^{i\theta}\mathrm{d}\theta\biggr|\quad(z = Re^{i\theta})\\
+ &< \int_0^{2\pi}\frac{(\ln{R} + i\theta)^3}{R^2 - 1}R\mathrm{d}\theta\\
+ &< \int_0^{2\pi}\frac{[(\ln{R})^2 + 4\pi^2]^{\frac{3}{2}}}{R^2 - 1}\mathrm{d}\theta\\
+ &=2\pi\frac{R\bigl((\ln{R})^2 + \theta^2\bigr)^{\frac{3}{2}}}{R^2 - 1}\\
+ &\to 0 \quad(as\, R \to \infty)\\
+ \biggl|\int_{C_{\epsilon}}\mathrm{d}z\frac{(\ln{z})^2}{z^2 + 1}\biggr| &= \biggl|\int_0^{2\pi}\frac{(\ln{\epsilon e^{i\theta}})^3}{\epsilon^2e^{2i\theta} + 1}i\epsilon e^{i\theta}\mathrm{d}\theta\biggr|\quad(z = \epsilon e^{i\theta})\\
+ &< \int_0^{2\pi}\frac{(\ln{\epsilon} + i\theta)^3}{1 - \epsilon^2}\epsilon\mathrm{d}\theta\\
+ &= \int_0^{2\pi}\frac{\epsilon\bigl((\ln{\epsilon})^2 + \theta^2\bigr)^{\frac{3}{2}}}{1 - \epsilon^2}\mathrm{d}\theta\\
+ &=2\pi\frac{\epsilon\bigl((\ln{\epsilon})^2 + \theta^2\bigr)^{\frac{3}{2}}}{1 - \epsilon^2}\\
+ &\to 0 \quad(as\, \epsilon \to \infty)\\
+ \oint_c\mathrm{d}z\frac{(\ln{z})^3}{z^2 + 1} &= 2\pi iRes\biggl(\frac{(\ln{z})^3}{z^2 + 1}, e^{i\frac{\pi}{2}}\biggr) + 2\pi iRes\biggl(\frac{(\ln{z})^3}{z^2 + 1}, e^{i\frac{3\pi}{2}}\biggr)\\
+ &= 2\pi i \frac{(\ln{(e^{i\frac{\pi}{2}})})^3}{2i} + 2\pi i \frac{(\ln{(e^{i\frac{3\pi}{2}})})^3}{ -2i}\\
+ &= 2\pi i \frac{(i\frac{\pi}{2})^3}{2i} + 2\pi i \frac{(i\frac{3\pi}{2})^3}{ -2i}\\
+ &= i\frac{13\pi^4}{4}\\
+  \int_{0}^{\infty} \frac{(\ln{z})^3}{z^2 + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{0}^{\infty} \frac{(\ln{(xe^0 + i\delta)})^3}{(xe^0 + i\delta)^2 + 1} \mathrm{d}x \quad(z = xe^0 + i\delta)\\
+ &= \int_{0}^{\infty}  \frac{(\ln{x})^3}{x^2 + 1}\quad(\because \frac{(\ln{(xe^0 + i\delta)})^3}{(xe^0 + i\delta)^2 + 1}は一様収束)\\
+ \int_{\infty}^{0} \frac{(\ln{z})^3}{z^2 + 1} \mathrm{d}z &= \lim_{\delta \to 0}\int_{\infty}^{0} \frac{(\ln{(xe^{i2\pi} + i\delta)})^3}{(xe^{i2\pi} + i\delta)^2 + 1}\mathrm{d}x \quad(z = xe^{i2\pi} + i\delta)\\
+ &= \int_{\infty}^{0} \frac{(\ln{(xe^{i2\pi}}))^3}{x^2 + 1}\ \mathrm{d}x\quad(\because\frac{(\ln{(xe^{i2\pi} + i\delta)})^3}{(xe^{i2\pi} + i\delta)^2 + 1} は一様収束)\\
+ &= \int_{\infty}^{0} \frac{(\ln{x} + i2\pi)^3}{x^2 + 1}\ \mathrm{d}x\\
+ &= \int_{\infty}^{0} \frac{(\ln{x})^3 + i6\pi(\ln{x})^2 -12\pi^2\ln{x} - i8\pi^3}{x^2 + 1}\mathrm{d}x\\
+ &= -i6J - \int_{0}^{\infty} \frac{(\ln{x})^3}{x^2 + 1} + i8\pi^3 \times \frac{\pi}{2}\\
+ &= -i6\pi J - \int_{0}^{\infty} \frac{(\ln{x})^2}{x^2 + 1} +i4\pi^4
+ \end{align*}
+ 以上より、
+ \begin{align*}
+ J &= \frac{1}{-i6}\biggl(\int_{0}^{\infty} \frac{(\ln{z})^2}{z^2 + 1} \mathrm{d}z + \int_{\infty}^{0} \frac{(\ln{z})^2}{z^2 + 1} \mathrm{d}z - i4\pi^4\biggr)\\
+ &=\frac{i}{6}\biggl(\oint_C\frac{(\ln{z})^2}{z^2 + 1}\mathrm{d}z + \int_{C_\epsilon}\frac{(\ln{z})^2}{z^2 + 1}\mathrm{d}z +  \int_{C_R}\frac{(\ln{z})^2}{z^2 + 1}\mathrm{d}z - i4\pi^4\biggr)\\
+&=\frac{i}{4}(i\frac{13\pi^4}{4} -  i4\pi^4)\\
+&= \frac{\pi^3}{8}
+ \end{align*}
+\\
+
+ \end{document}
